@@ -1,0 +1,25 @@
+{
+    "name": "sebastiansulinski/laravel-currency",
+    "description": "Currency component for Laravel 5.",
+    "require": {
+        "php": ">=5.5.9",
+        "laravel/framework": "^5.1"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sebastian Sulinski",
+            "email": "info@ssdtutorials.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "SSD\\": "src",
+            "Test\\": "tests"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.1"
+    }
+}
