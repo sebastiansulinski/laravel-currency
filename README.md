@@ -144,7 +144,7 @@ Next we need to add the Controller with Action and Route for it:
 ```
 // app/Http/routes.php
 
-Route::get('currency/{currency_id}', 'CurrencyController@index');
+Route::get('currency/{currency_id}', 'CurrencyController@set');
 
 ```
 
@@ -190,6 +190,20 @@ Let's assume our `Product` model has a `prices()` method, which will return the 
 
 ```
 /**
+ * Array of prices.
+ *
+ * @return array
+ */
+public function prices()
+{
+    return [
+        'gbp' => $this->price_gbp,
+        'usd' => $this->price_usd,
+        'eur' => $this->price_eur
+    ];
+}
+
+/**
  * Price formatted with the currency symbol.
  *
  * @return string
@@ -200,7 +214,7 @@ public function priceDisplay()
 }
 ```
 
-This will return the price with the currency symbol i.e. £10.00.
+The `priceDisplay()` method will return the price with the currency symbol i.e. `£10.00` (depending on the currently selected currency).
 
 ## Formatting methods
 
