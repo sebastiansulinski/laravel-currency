@@ -68,7 +68,7 @@ By default, package makes use of `Cookie` facade to store the selected currency 
 There are 3 methods that the new Provider needs to implement - these are: `get`, `set` and `is`.
 Please see `SSD\Currency\Providers\CookieProvider` to get a better idea.
 
-Once you have a new implementation ready, create the new ServiceProvider and replace it with the package's default one in `config/app.php`.
+Once you have a new implementation ready, create the new ServiceProvider and replace it within `config/app.php`.
 
 ## Adding more currencies
 
