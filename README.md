@@ -199,7 +199,8 @@ public function prices()
     return [
         'gbp' => $this->price_gbp,
         'usd' => $this->price_usd,
-        'eur' => $this->price_eur
+        'eur' => $this->price_eur,
+        'jpy' => $this->price_jpy
     ];
 }
 
