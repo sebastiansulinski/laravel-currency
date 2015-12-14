@@ -84,6 +84,9 @@ For instance, implementation for Japanese Yen would be (assuming you keep your c
 ```
 <?php namespace App\Components\Currencies;
 
+use SSD\Currency\Currencies\BaseCurrency;
+use SSD\Currency\Currencies\CurrencyContract;
+
 class JPY extends BaseCurrency implements CurrencyContract
 {
     /**
