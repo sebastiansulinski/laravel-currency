@@ -1,7 +1,5 @@
 <?php namespace SSD\Currency\Providers;
 
-use Cookie;
-
 class CookieProvider extends BaseProvider implements ProviderContract
 {
     /**
@@ -11,7 +9,7 @@ class CookieProvider extends BaseProvider implements ProviderContract
      */
     public function get()
     {
-        return strtolower(Cookie::get(
+        return strtolower($this->request->cookie(
             $this->config->get('key'),
             $this->config->get('default')
         ));
@@ -25,7 +23,7 @@ class CookieProvider extends BaseProvider implements ProviderContract
      */
     public function set($currency)
     {
-        return Cookie::forever(
+        return cookie()->forever(
             $this->config->get('key'),
             strtolower($currency)
         );

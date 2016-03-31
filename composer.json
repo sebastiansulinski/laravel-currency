@@ -3,7 +3,7 @@
     "description": "Currency component for Laravel 5.",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "^5.1"
+        "laravel/framework": "^5.2"
     },
     "license": "MIT",
     "authors": [
@@ -16,10 +16,10 @@
     "autoload": {
         "psr-4": {
             "SSD\\": "src",
-            "Test\\": "tests"
+            "SSDTest\\": "tests"
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.1"
+        "phpunit/phpunit": "^5.2"
     }
 }

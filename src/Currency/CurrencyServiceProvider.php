@@ -28,7 +28,8 @@ class CurrencyServiceProvider extends ServiceProvider
         $this->app->singleton('currency', function($app) {
 
             return new Currency(new CookieProvider(
-                new Config($app->make('config')->get('currency'))
+                new Config($app->make('config')->get('currency')),
+                $app->make('request')
             ));
 
         });

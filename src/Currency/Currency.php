@@ -45,7 +45,7 @@ class Currency
      * @param string|array $values
      * @param null $currency
      * @param null|int $decimal_points
-     * @return
+     * @return mixed
      */
     public function withPrefix($values, $currency = null, $decimal_points = null)
     {
