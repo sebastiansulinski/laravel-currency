@@ -85,18 +85,4 @@ class CurrencyTest extends TestCase
 
         $this->assertEquals('$35.00 USD', $result);
     }
-
-    // TODO
-    // write set / get / is tests
-    // with ArrayProvider / Test Double for Cookie Provider
-
-//    /**
-//     * @test
-//     */
-//    public function sets_new_currency()
-//    {
-//        $this->currency->set('eur');
-//
-//        $this->assertEquals('eur', $this->currency->get());
-//    }
 }

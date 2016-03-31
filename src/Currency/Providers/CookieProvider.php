@@ -1,5 +1,8 @@
 <?php namespace SSD\Currency\Providers;
 
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Cookie;
+
 class CookieProvider extends BaseProvider implements ProviderContract
 {
     /**
