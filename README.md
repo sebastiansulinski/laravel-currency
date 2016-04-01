@@ -60,10 +60,15 @@ To use it as a Facade, add it under the `aliases`:
 
 ## Provider
 
-By default, package makes use of `Cookie` facade to store the selected currency in the cookie, however you can change it to whatever other storage you'd like by simply implementing a new `Provider` which:
+Package comes with two implementations / providers:
 
-- extends `SSD\Currency\Providers\BaseProvider`
-- and implements `SSD\Currency\Providers\ProviderContract`
+- `SSD\Providers\CookieProvider`, which stores selected currency in the encrypted cookie
+- `SSD\Providers\SessionProvider`, which will store the selected currency using default session driver
+
+You can create additional providers by:
+
+- extending `SSD\Currency\Providers\BaseProvider`
+- and implementing `SSD\Currency\Providers\ProviderContract`
 
 There are 3 methods that the new Provider needs to implement - these are: `get`, `set` and `is`.
 Please see `SSD\Currency\Providers\CookieProvider` to get a better idea.
