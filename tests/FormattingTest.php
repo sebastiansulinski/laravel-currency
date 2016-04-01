@@ -1,7 +1,41 @@
-<?php namespace SSDTest;
+<?php
 
-class CurrencyTest extends TestCase
+use SSD\Currency\Config;
+use SSD\Currency\Currency;
+use SSD\Currency\Providers\CookieProvider;
+
+class FormattingTest extends CurrencyTestCase
 {
+    /**
+     * @var Currency
+     */
+    protected $currency;
+
+    /**
+     * Set up.
+     *
+     * @return void
+     */
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->setCurrency();
+    }
+
+    /**
+     * Instantiate Currency.
+     *
+     * @return void
+     */
+    public function setCurrency()
+    {
+        $this->currency = new Currency(new CookieProvider(
+            new Config($this->config),
+            $this->app['request']
+        ));
+    }
+
     /**
      * @test
      */
