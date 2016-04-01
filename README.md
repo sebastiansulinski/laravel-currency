@@ -62,8 +62,8 @@ To use it as a Facade, add it under the `aliases`:
 
 Package comes with two implementations / providers:
 
-- `SSD\Providers\CookieProvider`, which stores selected currency in the encrypted cookie
-- `SSD\Providers\SessionProvider`, which will store the selected currency using default session driver
+- `SSD\Currency\Providers\CookieProvider`, which stores selected currency in the encrypted cookie
+- `SSD\Currency\Providers\SessionProvider`, which will store the selected currency using default session driver
 
 You can create additional providers by:
 
