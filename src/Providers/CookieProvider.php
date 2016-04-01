@@ -1,10 +1,29 @@
 <?php namespace SSD\Currency\Providers;
 
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Cookie;
+use Illuminate\Http\Request;
+
+use SSD\Currency\Config;
 
 class CookieProvider extends BaseProvider implements ProviderContract
 {
+    /**
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * CookieProvider constructor.
+     *
+     * @param Config $config
+     * @param Request $request
+     */
+    public function __construct(Config $config, Request $request)
+    {
+        parent::__construct($config);
+
+        $this->request = $request;
+    }
+
     /**
      * Get current currency.
      *
@@ -12,7 +31,7 @@ class CookieProvider extends BaseProvider implements ProviderContract
      */
     public function get()
     {
-        return strtolower($this->request->cookie(
+        return $this->value($this->request->cookie(
             $this->config->get('key'),
             $this->config->get('default')
         ));
@@ -22,13 +41,13 @@ class CookieProvider extends BaseProvider implements ProviderContract
      * Set currency.
      *
      * @param $currency
-     * @return \Symfony\Component\HttpFoundation\Cookie
+     * @return void
      */
     public function set($currency)
     {
-        return cookie()->forever(
+        cookie()->forever(
             $this->config->get('key'),
-            strtolower($currency)
+            $this->value($currency)
         );
     }
 
@@ -40,6 +59,6 @@ class CookieProvider extends BaseProvider implements ProviderContract
      */
     public function is($currency)
     {
-        return $this->get() == strtolower($currency);
+        return $this->get() == $this->value($currency);
     }
 }

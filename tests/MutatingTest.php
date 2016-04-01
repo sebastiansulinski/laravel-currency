@@ -7,12 +7,8 @@ use SSD\Currency\Config;
 use SSD\Currency\Currency;
 use SSD\Currency\Providers\CookieProvider;
 
-class MutatorTest extends TestCase
+class MutatingTest extends TestCase
 {
-    public function tearDown() {
-        m::close();
-    }
-
     /**
      * @test
      */

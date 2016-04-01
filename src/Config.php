@@ -15,10 +15,6 @@ class Config
      */
     public function __construct(array $config)
     {
-        if (empty($config)) {
-            throw new InvalidArgumentException("Invalid configuration");
-        }
-
         foreach($config as $key => $value) {
             $this->attributes[$key] = $value;
         }
