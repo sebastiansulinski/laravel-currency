@@ -163,23 +163,23 @@ Route::get('currency/{currency_id}', 'CurrencyController@set');
 
 <?php namespace App\Http\Controllers;
 
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 
 use Currency;
-use App\Http\Controllers\Controller;
 
 class CurrencyController extends Controller
 {
     /**
      * Set currency cookie.
      *
-     * @param Response $response
      * @param $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function set(Response $response, $id)
+    public function set($id)
     {
-        return $response->withCookie(Currency::set($id));
+        Currency::set($id);
+
+        return new JsonResponse(['success' => true]);
     }
 }
 
