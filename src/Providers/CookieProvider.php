@@ -45,7 +45,7 @@ class CookieProvider extends BaseProvider implements ProviderContract
      */
     public function set($currency)
     {
-        cookie()->forever(
+        cookie()->queue(
             $this->config->get('key'),
             $this->value($currency)
         );
