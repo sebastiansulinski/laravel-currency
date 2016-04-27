@@ -25,7 +25,8 @@ return [
     "currencies" => [
         "gbp" => \SSD\Currency\Currencies\GBP::class,
         "usd" => \SSD\Currency\Currencies\USD::class,
-        "eur" => \SSD\Currency\Currencies\EUR::class
+        "eur" => \SSD\Currency\Currencies\EUR::class,
+        "brl" => \SSD\Currency\Currencies\BRL::class
     ]
 ];
 ```
@@ -77,7 +78,7 @@ Once you have a new implementation ready, create the new ServiceProvider and rep
 
 ## Adding more currencies
 
-Package comes with 3 currencies out of the box: `GBP`, `USD`, `EUR`.
+Package comes with 4 currencies out of the box: `GBP`, `USD`, `EUR`, `BRL`.
 
 If you'd like to add more, first create a new currency class, which:
 
@@ -118,6 +119,7 @@ return [
         "gbp" => \SSD\Currency\Currencies\GBP::class,
         "usd" => \SSD\Currency\Currencies\USD::class,
         "eur" => \SSD\Currency\Currencies\EUR::class,
+        "brl" => \SSD\Currency\Currencies\BRL::class,
         "jpy" => \App\Components\Currencies\JPY::class
     ]
 ];

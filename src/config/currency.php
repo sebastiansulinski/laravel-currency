@@ -6,6 +6,7 @@ return [
     "currencies" => [
         "gbp" => \SSD\Currency\Currencies\GBP::class,
         "usd" => \SSD\Currency\Currencies\USD::class,
-        "eur" => \SSD\Currency\Currencies\EUR::class
+        "eur" => \SSD\Currency\Currencies\EUR::class,
+        "brl" => \SSD\Currency\Currencies\BRL::class
     ]
 ];
