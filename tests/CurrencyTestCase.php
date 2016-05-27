@@ -1,6 +1,6 @@
 <?php
 
-class CurrencyTestCase extends \TestCase
+class CurrencyTestCase extends PHPUnit_Framework_TestCase
 {
     /**
      * @var array
