@@ -25,6 +25,8 @@ abstract class BaseCurrency
     }
 
     /**
+     * Get formatted value.
+     *
      * @param float $value
      * @param null|int $decimal_points
      * @return string
