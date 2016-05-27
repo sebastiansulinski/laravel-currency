@@ -15,7 +15,7 @@ abstract class BaseCurrency
     /**
      * Convert value to decimal.
      *
-     * @param $value
+     * @param float $value
      * @param int $decimal_points
      * @return string
      */
@@ -25,48 +25,56 @@ abstract class BaseCurrency
     }
 
     /**
+     * @param float $value
+     * @param null|int $decimal_points
+     * @return string
+     */
+    public function value($value, $decimal_points = null)
+    {
+        if (is_null($decimal_points)) {
+            return $value;
+        }
+
+        return $this->decimal($value, $decimal_points);
+    }
+
+    /**
      * Display value as decimal
      * with currency symbol.
      *
-     * @param $value
-     * @param null $decimal_points
+     * @param float $value
+     * @param null|int $decimal_points
      * @return mixed
      */
     public function prefix($value, $decimal_points = null)
     {
-        $value = is_null($decimal_points) ? $value : $this->decimal($value, $decimal_points);
-
-        return $this->prefix . $value;
+        return $this->prefix . $this->value($value, $decimal_points);
     }
 
     /**
      * Display value as decimal
      * with currency label.
      *
-     * @param $value
-     * @param null $decimal_points
+     * @param float $value
+     * @param null|int $decimal_points
      * @return mixed
      */
     public function postfix($value, $decimal_points = null)
     {
-        $value = is_null($decimal_points) ? $value : $this->decimal($value, $decimal_points);
-
-        return $value . ' ' . $this->postfix;
+        return $this->value($value, $decimal_points) . ' ' . $this->postfix;
     }
 
     /**
      * Display value as decimal
      * with currency symbol and label.
      *
-     * @param $value
-     * @param null $decimal_points
+     * @param float $value
+     * @param null|int $decimal_points
      * @return mixed
      */
     public function prefix_postfix($value, $decimal_points = null)
     {
-        $value = is_null($decimal_points) ? $value : $this->decimal($value, $decimal_points);
-
-        return $this->prefix . $value . ' ' . $this->postfix;
+        return $this->prefix . $this->value($value, $decimal_points) . ' ' . $this->postfix;
     }
 
     /**
