@@ -2,7 +2,9 @@
     "name": "sebastiansulinski/laravel-currency",
     "description": "Currency component for Laravel 5+",
     "require": {
-        "php": ">=5.5.9"
+        "php": ">=5.5.9",
+        "illuminate/http": "^5.2",
+        "illuminate/support": "^5.2"
     },
     "license": "MIT",
     "authors": [
@@ -16,6 +18,11 @@
         "psr-4": {
             "SSD\\Currency\\": "src"
         }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/CurrencyTestCase.php"
+        ]
     },
     "require-dev": {
         "phpunit/phpunit": "^5.3",
