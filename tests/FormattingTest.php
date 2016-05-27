@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Request;
+
 use SSD\Currency\Config;
 use SSD\Currency\Currency;
 use SSD\Currency\Providers\CookieProvider;
@@ -32,7 +34,7 @@ class FormattingTest extends CurrencyTestCase
     {
         $this->currency = new Currency(new CookieProvider(
             new Config($this->config),
-            $this->app['request']
+            Request::capture()
         ));
     }
 

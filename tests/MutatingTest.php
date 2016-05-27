@@ -1,6 +1,7 @@
 <?php
 
 use Mockery as m;
+use Illuminate\Http\Request;
 
 use SSD\Currency\Config;
 use SSD\Currency\Currency;
@@ -17,7 +18,7 @@ class MutatingTest extends CurrencyTestCase
 
         $currency = new Currency(new CookieProvider(
             $config,
-            $this->app['request']
+            Request::capture()
         ));
 
         $this->assertEquals($config->get('default'), $currency->get());
@@ -34,7 +35,7 @@ class MutatingTest extends CurrencyTestCase
             'SSD\Currency\Providers\CookieProvider',
             [
                 $config,
-                $this->app['request']
+                Request::capture()
             ]
         );
 
@@ -61,7 +62,7 @@ class MutatingTest extends CurrencyTestCase
 
         $currency = new Currency(new CookieProvider(
             $config,
-            $this->app['request']
+            Request::capture()
         ));
 
         $this->assertTrue($currency->is($config->get('default')));
@@ -78,7 +79,7 @@ class MutatingTest extends CurrencyTestCase
             'SSD\Currency\Providers\CookieProvider',
             [
                 $config,
-                $this->app['request']
+                Request::capture()
             ]
         );
 
