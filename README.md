@@ -232,9 +232,9 @@ The `priceDisplay()` method will return the price with the currency symbol i.e. 
 We have the following methods available on our `Currency` object:
 
 - `decimal($values, $currency = null, $decimal_points = 2)` : gets the value and gives it back in the decimal format.
-- `withPrefix($values, $currency = null, $decimal_points = 2)` : gets the value and gives it back with the currency symbol at the beginning.
-- `withPostfix($values, $currency = null, $decimal_points = 2)` : gets the value and gives it back with the currency code at the end.
-- `withPrefixAndPostfix($values, $currency = null, $decimal_points = 2)` : gets the value and gives it back with the currency symbol and code.
+- `withPrefix($values, $currency = null, $decimal_points = null)` : gets the value and gives it back with the currency symbol at the beginning.
+- `withPostfix($values, $currency = null, $decimal_points = null)` : gets the value and gives it back with the currency code at the end.
+- `withPrefixAndPostfix($values, $currency = null, $decimal_points = null)` : gets the value and gives it back with the currency symbol and code.
 
 The above 4 methods accept 3 arguments:
 
