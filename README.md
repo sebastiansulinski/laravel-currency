@@ -8,7 +8,31 @@ Install the package using composer
 composer require sebastiansulinski/laravel-currency
 ```
 
-Once installed, run:
+### Service Provider and Facade
+
+To use the package with the IOC Container, add its `SSD\Currency\CurrencyServiceProvider` to the list of providers inside of the `config/app.php` under the `providers`:
+
+```
+
+'providers' => [
+    ...
+
+    SSD\Currency\CurrencyServiceProvider::class
+
+]
+```
+
+To use it as a Facade, add it under the `aliases`:
+
+```
+'aliases' => [
+    ...
+
+    'Currency'  => SSD\Currency\CurrencyFacade::class
+]
+```
+
+now run:
 
 ```
 php artisan vendor:publish
@@ -33,30 +57,6 @@ return [
 The `key` is used as the session key, which stores the currently selected currency.
 The `default` states the default currency.
 The `currencies` contains a list of available currencies.
-
-### Service Provider and Facade
-
-To use the package with the IOC Container, add its `SSD\Currency\CurrencyServiceProvider` to the list of providers inside of the `config/app.php` under the `providers`:
-
-```
-
-'providers' => [
-    ...
-
-    SSD\Currency\CurrencyServiceProvider::class
-
-]
-```
-
-To use it as a Facade, add it under the `aliases`:
-
-```
-'aliases' => [
-    ...
-
-    'Currency'  => SSD\Currency\CurrencyFacade::class
-]
-```
 
 ## Provider
 
