@@ -1,4 +1,6 @@
-<?php namespace SSD\Currency;
+<?php
+
+namespace SSD\Currency;
 
 use Illuminate\Support\Facades\Facade;
 

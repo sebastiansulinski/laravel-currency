@@ -1,4 +1,6 @@
-<?php namespace SSD\Currency\Providers;
+<?php
+
+namespace SSD\Currency\Providers;
 
 use SSD\Currency\Config;
 
@@ -28,4 +30,27 @@ abstract class BaseProvider
     {
         return strtolower($name);
     }
+
+    /**
+     * Get currency.
+     *
+     * @return string
+     */
+    abstract public function get();
+
+    /**
+     * Set currency.
+     *
+     * @param $currency
+     * @return void
+     */
+    abstract public function set($currency);
+
+    /**
+     * Check if currency matches argument.
+     *
+     * @param $currency
+     * @return bool
+     */
+    abstract public function is($currency);
 }

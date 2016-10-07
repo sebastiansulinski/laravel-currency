@@ -1,6 +1,8 @@
-<?php namespace SSD\Currency\Currencies;
+<?php
 
-class USD extends BaseCurrency implements CurrencyContract
+namespace SSD\Currency\Currencies;
+
+class USD extends BaseCurrency
 {
     /**
      * @var string

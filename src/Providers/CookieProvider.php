@@ -1,10 +1,12 @@
-<?php namespace SSD\Currency\Providers;
+<?php
 
-use Illuminate\Http\Request;
+namespace SSD\Currency\Providers;
 
 use SSD\Currency\Config;
 
-class CookieProvider extends BaseProvider implements ProviderContract
+use Illuminate\Http\Request;
+
+class CookieProvider extends BaseProvider
 {
     /**
      * @var Request

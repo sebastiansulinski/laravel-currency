@@ -1,8 +1,10 @@
-<?php namespace SSD\Currency;
+<?php
 
-use Illuminate\Support\ServiceProvider;
+namespace SSD\Currency;
 
 use SSD\Currency\Providers\CookieProvider;
+
+use Illuminate\Support\ServiceProvider;
 
 class CurrencyServiceProvider extends ServiceProvider
 {

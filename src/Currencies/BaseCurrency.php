@@ -1,4 +1,6 @@
-<?php namespace SSD\Currency\Currencies;
+<?php
+
+namespace SSD\Currency\Currencies;
 
 abstract class BaseCurrency
 {

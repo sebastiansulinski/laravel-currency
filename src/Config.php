@@ -1,4 +1,6 @@
-<?php namespace SSD\Currency;
+<?php
+
+namespace SSD\Currency;
 
 use InvalidArgumentException;
 
@@ -15,9 +17,7 @@ class Config
      */
     public function __construct(array $config)
     {
-        foreach($config as $key => $value) {
-            $this->attributes[$key] = $value;
-        }
+        $this->attributes = $config;
     }
 
     /**

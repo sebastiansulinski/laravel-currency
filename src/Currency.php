@@ -1,22 +1,24 @@
-<?php namespace SSD\Currency;
+<?php
+
+namespace SSD\Currency;
+
+use SSD\Currency\Providers\BaseProvider;
 
 use InvalidArgumentException;
-
-use SSD\Currency\Providers\ProviderContract;
 
 class Currency
 {
     /**
-     * @var ProviderContract
+     * @var BaseProvider
      */
     private $provider;
 
     /**
      * Currency constructor.
      *
-     * @param ProviderContract $provider
+     * @param BaseProvider $provider
      */
-    public function __construct(ProviderContract $provider)
+    public function __construct(BaseProvider $provider)
     {
         $this->provider = $provider;
     }

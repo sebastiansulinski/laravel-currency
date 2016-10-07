@@ -1,7 +1,10 @@
-<?php namespace SSD\Currency;
+<?php
+
+namespace SSD\Currency;
+
+use SSD\Currency\Currencies\BaseCurrency;
 
 use InvalidArgumentException;
-use SSD\Currency\Currencies\CurrencyContract;
 
 class Option
 {
@@ -25,7 +28,7 @@ class Option
      * @param $value
      * @param $currency
      */
-    public function __construct($value, CurrencyContract $currency)
+    public function __construct($value, BaseCurrency $currency)
     {
         $this->value = $value;
         $this->label = $currency->label();
@@ -44,6 +47,4 @@ class Option
 
         return $this->{$name};
     }
-
-
 }
