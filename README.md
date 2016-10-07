@@ -68,7 +68,6 @@ Package comes with two implementations / providers:
 You can create additional providers by:
 
 - extending `SSD\Currency\Providers\BaseProvider`
-- and implementing `SSD\Currency\Providers\ProviderContract`
 
 There are 3 methods that the new Provider needs to implement - these are: `get`, `set` and `is`.
 Please see `SSD\Currency\Providers\CookieProvider` to get a better idea.
@@ -82,17 +81,17 @@ Package comes with 3 currencies out of the box: `GBP`, `USD`, `EUR`.
 If you'd like to add more, first create a new currency class, which:
 
 - extends `SSD\Currency\Currencies\BaseCurrency`
-- and implements `SSD\Currency\Currencies\CurrencyContract`
 
 For instance, implementation for Japanese Yen would be (assuming you keep your currencies under App\Components\Currencies namespace):
 
 ```
-<?php namespace App\Components\Currencies;
+<?php 
+
+namespace App\Components\Currencies;
 
 use SSD\Currency\Currencies\BaseCurrency;
-use SSD\Currency\Currencies\CurrencyContract;
 
-class JPY extends BaseCurrency implements CurrencyContract
+class JPY extends BaseCurrency
 {
     /**
      * @var string
@@ -161,7 +160,9 @@ Route::get('currency/{currency_id}', 'CurrencyController@set');
 ```
 // app/Http/Controllers/CurrencyController.php
 
-<?php namespace App\Http\Controllers;
+<?php 
+
+namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 
