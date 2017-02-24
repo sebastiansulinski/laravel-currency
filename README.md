@@ -12,7 +12,7 @@ composer require sebastiansulinski/laravel-currency
 
 To use the package with the IOC Container, add its `SSD\Currency\CurrencyServiceProvider` to the list of providers inside of the `config/app.php` under the `providers`:
 
-```
+```php
 
 'providers' => [
     ...
@@ -24,7 +24,7 @@ To use the package with the IOC Container, add its `SSD\Currency\CurrencyService
 
 To use it as a Facade, add it under the `aliases`:
 
-```
+```php
 'aliases' => [
     ...
 
@@ -40,7 +40,7 @@ php artisan vendor:publish
 
 This will add a new file `config/currency.php` with the following structure:
 
-```
+```php
 <?php
 
 return [
@@ -84,7 +84,7 @@ If you'd like to add more, first create a new currency class, which:
 
 For instance, implementation for Japanese Yen would be (assuming you keep your currencies under App\Components\Currencies namespace):
 
-```
+```php
 <?php 
 
 namespace App\Components\Currencies;
@@ -107,7 +107,7 @@ class JPY extends BaseCurrency
 
 All you need to do now to be able to use it is to add it to the `config/currency.php` file:
 
-```
+```php
 <?php
 
 return [
@@ -128,7 +128,7 @@ The most common way of displaying currencies is to either have them displayed as
 
 First let's create a form select element with all options displayed. We can either use a `Currency` facade or simply pull `currency` from within the container using `app('currency')`:
 
-```
+```php
 <form>
     <select id="currency">
         @foreach(app('currency')->options() as $option)
@@ -142,7 +142,7 @@ Now we need have some JavaScript so that when the `change` event occurs, the cal
 
 You can use [sebastiansulinski/ssd-select](https://www.npmjs.com/package/ssd-select) and bind its `call-reload` action with our `select` element somewhere from within your JavaScript files:
 
-```
+```js
 $('#currency').ssdSelect({
    action : 'call-reload'
 });
@@ -150,14 +150,14 @@ $('#currency').ssdSelect({
 
 Next we need to add the Controller with Action and Route for it:
 
-```
+```php
 // app/Http/routes.php
 
 Route::get('currency/{currency_id}', 'CurrencyController@set');
 
 ```
 
-```
+```php
 // app/Http/Controllers/CurrencyController.php
 
 <?php 
@@ -188,7 +188,7 @@ class CurrencyController extends Controller
 
 Now if you'd like to display price based on the selected currency, make sure that your model can provider an array of prices for a given item in the following format:
 
-```
+```php
 [
     'gbp' => 10.00,
     'eur' => 11.56,
@@ -199,7 +199,7 @@ Now if you'd like to display price based on the selected currency, make sure tha
 
 Let's assume our `Product` model has a `prices()` method, which will return the array formatted as above. To use it with the currency you can now simply call:
 
-```
+```php
 /**
  * Array of prices.
  *
