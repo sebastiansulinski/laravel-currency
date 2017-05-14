@@ -132,7 +132,10 @@ First let's create a form select element with all options displayed. We can eith
 <form>
     <select id="currency">
         @foreach(app('currency')->options() as $option)
-            <option value="/currency/{{ $option->value }}"{{ app('currency')->selected($option->value) }}>{{ $option->label }}</option>
+            <option 
+                value="/currency/{{ $option->value }}"
+                {{ app('currency')->selected($option->value) }}
+            >{{ $option->label }}</option>
         @endforeach
     </select>
 </form>
