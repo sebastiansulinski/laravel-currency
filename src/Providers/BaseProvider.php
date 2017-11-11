@@ -7,13 +7,14 @@ use SSD\Currency\Config;
 abstract class BaseProvider
 {
     /**
-     * @var Config
+     * @var \SSD\Currency\Config
      */
     public $config;
 
     /**
      * Cookie constructor.
-     * @param Config $config
+     *
+     * @param  \SSD\Currency\Config $config
      */
     public function __construct(Config $config)
     {
@@ -23,10 +24,10 @@ abstract class BaseProvider
     /**
      * Format value.
      *
-     * @param $name
-     * @return mixed
+     * @param  string $name
+     * @return string
      */
-    protected function value($name)
+    protected function value(string $name): string
     {
         return strtolower($name);
     }
@@ -36,21 +37,21 @@ abstract class BaseProvider
      *
      * @return string
      */
-    abstract public function get();
+    abstract public function get(): string;
 
     /**
      * Set currency.
      *
-     * @param $currency
+     * @param  string $currency
      * @return void
      */
-    abstract public function set($currency);
+    abstract public function set(string $currency): void;
 
     /**
      * Check if currency matches argument.
      *
-     * @param $currency
+     * @param  string $currency
      * @return bool
      */
-    abstract public function is($currency);
+    abstract public function is(string $currency): bool;
 }

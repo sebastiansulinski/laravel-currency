@@ -1,5 +1,7 @@
 <?php
 
+namespace SSDTest;
+
 use Mockery as m;
 use Illuminate\Http\Request;
 
@@ -7,7 +9,7 @@ use SSD\Currency\Config;
 use SSD\Currency\Currency;
 use SSD\Currency\Providers\CookieProvider;
 
-class MutatingTest extends CurrencyTestCase
+class MutatingBaseTest extends CurrencyBaseCase
 {
     /**
      * @test

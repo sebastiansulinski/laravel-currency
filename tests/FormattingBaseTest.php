@@ -1,12 +1,14 @@
 <?php
 
+namespace SSDTest;
+
 use Illuminate\Http\Request;
 
 use SSD\Currency\Config;
 use SSD\Currency\Currency;
 use SSD\Currency\Providers\CookieProvider;
 
-class FormattingTest extends CurrencyTestCase
+class FormattingBaseTest extends CurrencyBaseCase
 {
     /**
      * @var Currency

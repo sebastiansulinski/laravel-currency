@@ -17,11 +17,11 @@ abstract class BaseCurrency
     /**
      * Convert value to decimal.
      *
-     * @param float $value
-     * @param int $decimal_points
+     * @param  float $value
+     * @param  int $decimal_points
      * @return string
      */
-    public function decimal($value, $decimal_points = 2)
+    public function decimal(float $value, int $decimal_points = 2): string
     {
         return number_format($value, $decimal_points);
     }
@@ -29,11 +29,11 @@ abstract class BaseCurrency
     /**
      * Get formatted value.
      *
-     * @param float $value
-     * @param null|int $decimal_points
+     * @param  float $value
+     * @param  int|null $decimal_points
      * @return string
      */
-    public function value($value, $decimal_points = null)
+    public function value(float $value, int $decimal_points = null): string
     {
         if (is_null($decimal_points)) {
             return $value;
@@ -46,39 +46,39 @@ abstract class BaseCurrency
      * Display value as decimal
      * with currency symbol.
      *
-     * @param float $value
-     * @param null|int $decimal_points
-     * @return mixed
+     * @param  float $value
+     * @param  int|null $decimal_points
+     * @return string
      */
-    public function prefix($value, $decimal_points = null)
+    public function prefix(float $value, int $decimal_points = null): string
     {
-        return $this->prefix . $this->value($value, $decimal_points);
+        return $this->prefix.$this->value($value, $decimal_points);
     }
 
     /**
      * Display value as decimal
      * with currency label.
      *
-     * @param float $value
-     * @param null|int $decimal_points
-     * @return mixed
+     * @param  float $value
+     * @param  int|null $decimal_points
+     * @return string
      */
-    public function postfix($value, $decimal_points = null)
+    public function postfix(float $value, int $decimal_points = null): string
     {
-        return $this->value($value, $decimal_points) . ' ' . $this->postfix;
+        return $this->value($value, $decimal_points).' '.$this->postfix;
     }
 
     /**
      * Display value as decimal
      * with currency symbol and label.
      *
-     * @param float $value
-     * @param null|int $decimal_points
-     * @return mixed
+     * @param  float $value
+     * @param  int|null $decimal_points
+     * @return string
      */
-    public function prefix_postfix($value, $decimal_points = null)
+    public function prefixPostfix(float $value, int $decimal_points = null): string
     {
-        return $this->prefix . $this->value($value, $decimal_points) . ' ' . $this->postfix;
+        return $this->prefix.$this->value($value, $decimal_points).' '.$this->postfix;
     }
 
     /**
@@ -86,8 +86,8 @@ abstract class BaseCurrency
      *
      * @return string
      */
-    public function label()
+    public function label(): string
     {
-        return $this->postfix . ' (' . $this->prefix . ')';
+        return $this->postfix.' ('.$this->prefix.')';
     }
 }

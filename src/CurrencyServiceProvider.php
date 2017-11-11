@@ -2,9 +2,8 @@
 
 namespace SSD\Currency;
 
-use SSD\Currency\Providers\CookieProvider;
-
 use Illuminate\Support\ServiceProvider;
+use SSD\Currency\Providers\CookieProvider;
 
 class CurrencyServiceProvider extends ServiceProvider
 {
@@ -27,7 +26,7 @@ class CurrencyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('currency', function($app) {
+        $this->app->singleton('currency', function ($app) {
 
             return new Currency(new CookieProvider(
                 new Config($app->make('config')->get('currency')),

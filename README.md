@@ -1,5 +1,9 @@
 # Currency component for Laravel 5+
 
+## Versions
+
+As of version `v1.3.0`, package requires PHP 7.1. For earlier versions of PHP, please use `v1.2.0`
+
 ## Installation
 
 Install the package using composer

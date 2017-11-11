@@ -2,21 +2,20 @@
 
 namespace SSD\Currency;
 
-use SSD\Currency\Providers\BaseProvider;
-
 use InvalidArgumentException;
+use SSD\Currency\Providers\BaseProvider;
 
 class Currency
 {
     /**
-     * @var BaseProvider
+     * @var \SSD\Currency\Providers\BaseProvider
      */
     private $provider;
 
     /**
      * Currency constructor.
      *
-     * @param BaseProvider $provider
+     * @param  \SSD\Currency\Providers\BaseProvider $provider
      */
     public function __construct(BaseProvider $provider)
     {
@@ -26,12 +25,12 @@ class Currency
     /**
      * Convert value to decimal.
      *
-     * @param string|array $values
-     * @param null $currency
-     * @param int $decimal_points
-     * @return mixed
+     * @param  string|array $values
+     * @param  string|null $currency
+     * @param  int $decimal_points
+     * @return string
      */
-    public function decimal($values, $currency = null, $decimal_points = 2)
+    public function decimal($values, string $currency = null, int $decimal_points = 2): string
     {
         $className = $this->getClass($currency);
 
@@ -44,12 +43,12 @@ class Currency
      * Display value as decimal
      * with currency symbol.
      *
-     * @param string|array $values
-     * @param null $currency
-     * @param null|int $decimal_points
-     * @return mixed
+     * @param  string|array $values
+     * @param  string|null $currency
+     * @param  int|null $decimal_points
+     * @return string
      */
-    public function withPrefix($values, $currency = null, $decimal_points = null)
+    public function withPrefix($values, string $currency = null, int $decimal_points = null): string
     {
         $className = $this->getClass($currency);
 
@@ -62,12 +61,12 @@ class Currency
      * Display value as decimal
      * with currency label.
      *
-     * @param string|array $values
-     * @param null $currency
-     * @param null|int $decimal_points
-     * @return mixed
+     * @param  string|array $values
+     * @param  string|null $currency
+     * @param  int|null $decimal_points
+     * @return string
      */
-    public function withPostfix($values, $currency = null, $decimal_points = null)
+    public function withPostfix($values, string $currency = null, int $decimal_points = null): string
     {
         $className = $this->getClass($currency);
 
@@ -80,29 +79,29 @@ class Currency
      * Display value as decimal
      * with currency symbol and label.
      *
-     * @param string|array $values
-     * @param null $currency
-     * @param null|int $decimal_points
-     * @return mixed
+     * @param  string|array $values
+     * @param  string|null $currency
+     * @param  int|null $decimal_points
+     * @return string
      */
-    public function withPrefixAndPostfix($values, $currency = null, $decimal_points = null)
+    public function withPrefixAndPostfix($values, string $currency = null, int $decimal_points = null): string
     {
         $className = $this->getClass($currency);
 
         $value = is_array($values) ? $this->getValue($values, $currency) : $values;
 
-        return (new $className)->prefix_postfix($value, $decimal_points);
+        return (new $className)->prefixPostfix($value, $decimal_points);
     }
 
     /**
      * Get class name.
      *
-     * @param null $currency
-     * @return mixed
+     * @param  string|null $currency
+     * @return string
      */
-    private function getClass($currency = null)
+    private function getClass(string $currency = null): string
     {
-        $currency = ! is_null($currency) ? strtolower($currency) : $this->provider->get();
+        $currency = !is_null($currency) ? strtolower($currency) : $this->provider->get();
 
         return $this->provider->config->get('currencies')[$currency];
     }
@@ -110,13 +109,13 @@ class Currency
     /**
      * Get value.
      *
-     * @param array $values
-     * @param null $currency
-     * @return mixed
+     * @param  array $values
+     * @param  string|null $currency
+     * @return string
      */
-    private function getValue(array $values, $currency = null)
+    private function getValue(array $values, string $currency = null): string
     {
-        $currency = ! is_null($currency) ? strtolower($currency) : $this->provider->get();
+        $currency = !is_null($currency) ? strtolower($currency) : $this->provider->get();
 
         $values = array_change_key_case($values);
 
@@ -128,13 +127,13 @@ class Currency
      *
      * @return array
      */
-    public function options()
+    public function options(): array
     {
         $currencies = $this->provider->config->get('currencies');
 
         $options = [];
 
-        foreach($currencies as $key => $currency) {
+        foreach ($currencies as $key => $currency) {
 
             $options[] = new Option($key, new $currency);
 
@@ -146,13 +145,13 @@ class Currency
     /**
      * Selected attribute for currency select.
      *
-     * @param $currency
-     * @return null|string
+     * @param  string $currency
+     * @return string
      */
-    public function selected($currency)
+    public function selected(string $currency): string
     {
-        if ( ! $this->provider->is($currency)) {
-            return null;
+        if (!$this->provider->is($currency)) {
+            return '';
         }
 
         return ' selected="selected"';
@@ -161,13 +160,13 @@ class Currency
     /**
      * Override call to the methods on the provider.
      *
-     * @param $name
-     * @param $arguments
+     * @param  string $name
+     * @param  array $arguments
      * @return mixed
      */
-    public function __call($name, $arguments)
+    public function __call(string $name, array $arguments)
     {
-        if ( ! in_array($name, ['get', 'set', 'is'])) {
+        if (!in_array($name, ['get', 'set', 'is'])) {
             throw new InvalidArgumentException("Invalid method name");
         }
 

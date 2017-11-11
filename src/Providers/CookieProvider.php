@@ -3,21 +3,20 @@
 namespace SSD\Currency\Providers;
 
 use SSD\Currency\Config;
-
 use Illuminate\Http\Request;
 
 class CookieProvider extends BaseProvider
 {
     /**
-     * @var Request
+     * @var \Illuminate\Http\Request
      */
     protected $request;
 
     /**
      * CookieProvider constructor.
      *
-     * @param Config $config
-     * @param Request $request
+     * @param  \SSD\Currency\Config $config
+     * @param  \Illuminate\Http\Request $request
      */
     public function __construct(Config $config, Request $request)
     {
@@ -31,7 +30,7 @@ class CookieProvider extends BaseProvider
      *
      * @return string
      */
-    public function get()
+    public function get(): string
     {
         return $this->value($this->request->cookie(
             $this->config->get('key'),
@@ -42,10 +41,10 @@ class CookieProvider extends BaseProvider
     /**
      * Set currency.
      *
-     * @param $currency
+     * @param  string $currency
      * @return void
      */
-    public function set($currency)
+    public function set(string $currency): void
     {
         cookie()->queue(
             $this->config->get('key'),
@@ -56,10 +55,10 @@ class CookieProvider extends BaseProvider
     /**
      * Check if currency matches argument.
      *
-     * @param $currency
+     * @param  string $currency
      * @return bool
      */
-    public function is($currency)
+    public function is(string $currency): bool
     {
         return $this->get() == $this->value($currency);
     }

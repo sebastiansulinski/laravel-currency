@@ -13,6 +13,7 @@ class Config
 
     /**
      * Config constructor.
+     *
      * @param array $config
      */
     public function __construct(array $config)
@@ -23,13 +24,13 @@ class Config
     /**
      * Get value associated with a given key.
      *
-     * @param $key
+     * @param  string $key
      * @return mixed
      * @throws InvalidArgumentException
      */
-    public function get($key)
+    public function get(string $key)
     {
-        if ( ! array_key_exists($key, $this->attributes)) {
+        if (!array_key_exists($key, $this->attributes)) {
             throw new InvalidArgumentException("Key {$key} does not exist");
         }
 
