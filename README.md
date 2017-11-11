@@ -149,11 +149,17 @@ First let's create a form select element with all options displayed. We can eith
 
 Now we need have some JavaScript so that when the `change` event occurs, the call is made to the given route, where action of the controller sets the new currency and page reloads reflecting that change.
 
-You can use [sebastiansulinski/ssd-select](https://www.npmjs.com/package/ssd-select) and bind its `call-reload` action with our `select` element somewhere from within your JavaScript files:
+Simply bind `change` event to the `select` element using JavaScript:
 
 ```javascript
-$('#currency').ssdSelect({
-   action : 'call-reload'
+// vanilla JavaScript
+(document.getElementById('currency')).addEventListener('change', function(event) {
+    window.location.href = event.target.value;
+});
+
+// or using jQuery
+$('#currency').on('change', function() {
+    window.location.href = $(this).val();
 });
 ```
 
