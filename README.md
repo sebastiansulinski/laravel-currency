@@ -1,5 +1,7 @@
 # Currency component for Laravel 5+
 
+[![Build Status](https://travis-ci.org/sebastiansulinski/laravel-currency.svg?branch=master)](https://travis-ci.org/sebastiansulinski/laravel-currency)
+
 ## Versions
 
 As of version `v1.3.0`, package requires PHP 7.1. For earlier versions of PHP, please use `v1.2.0`
