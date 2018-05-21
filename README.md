@@ -61,10 +61,10 @@ return [
 ];
 ```
 
-The `key` is used as the session key, which stores the currently selected currency.
-The `default` states the default currency.
-The `currencies` contains a list of available currencies.
-The `value_as_integer` indicates whether your prices are stored as integers or float / decimal.
+*The `key` is used as the session key, which stores the currently selected currency.
+*The `default` states the default currency.
+*The `currencies` contains a list of available currencies.
+*The `value_as_integer` indicates whether your prices are stored as integers or float / decimal.
 
 ## Provider
 
