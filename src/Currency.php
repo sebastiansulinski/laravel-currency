@@ -32,16 +32,27 @@ class Currency
      */
     public function decimal($values, string $currency = null, int $decimal_points = 2): string
     {
-        $className = $this->getClass($currency);
-
-        $value = is_array($values) ? $this->getValue($values, $currency) : $values;
+        [$className, $value] = $this->classAndValue($values, $currency);
 
         return (new $className)->decimal($value, $decimal_points);
     }
 
     /**
-     * Display value as decimal
-     * with currency symbol.
+     * Convert value to integer.
+     *
+     * @param  string|array $values
+     * @param  string|null $currency
+     * @return int
+     */
+    public function integer($values, string $currency = null): int
+    {
+        [$className, $value] = $this->classAndValue($values, $currency, false);
+
+        return (new $className)->integer($value);
+    }
+
+    /**
+     * Display value as decimal with currency symbol.
      *
      * @param  string|array $values
      * @param  string|null $currency
@@ -50,16 +61,13 @@ class Currency
      */
     public function withPrefix($values, string $currency = null, int $decimal_points = null): string
     {
-        $className = $this->getClass($currency);
-
-        $value = is_array($values) ? $this->getValue($values, $currency) : $values;
+        [$className, $value] = $this->classAndValue($values, $currency);
 
         return (new $className)->prefix($value, $decimal_points);
     }
 
     /**
-     * Display value as decimal
-     * with currency label.
+     * Display value as decimal with currency label.
      *
      * @param  string|array $values
      * @param  string|null $currency
@@ -68,16 +76,13 @@ class Currency
      */
     public function withPostfix($values, string $currency = null, int $decimal_points = null): string
     {
-        $className = $this->getClass($currency);
-
-        $value = is_array($values) ? $this->getValue($values, $currency) : $values;
+        [$className, $value] = $this->classAndValue($values, $currency);
 
         return (new $className)->postfix($value, $decimal_points);
     }
 
     /**
-     * Display value as decimal
-     * with currency symbol and label.
+     * Display value as decimal with currency symbol and label.
      *
      * @param  string|array $values
      * @param  string|null $currency
@@ -86,11 +91,30 @@ class Currency
      */
     public function withPrefixAndPostfix($values, string $currency = null, int $decimal_points = null): string
     {
+        [$className, $value] = $this->classAndValue($values, $currency);
+
+        return (new $className)->prefixPostfix($value, $decimal_points);
+    }
+
+    /**
+     * Get class and value.
+     *
+     * @param  string|array $values
+     * @param  string|null $currency
+     * @param  bool $asFloat
+     * @return array
+     */
+    private function classAndValue($values, string $currency = null, bool $asFloat = true): array
+    {
         $className = $this->getClass($currency);
 
         $value = is_array($values) ? $this->getValue($values, $currency) : $values;
 
-        return (new $className)->prefixPostfix($value, $decimal_points);
+        if ($asFloat && $this->provider->config->value_as_integer) {
+            $value = $value / 100;
+        }
+
+        return [$className, $value];
     }
 
     /**

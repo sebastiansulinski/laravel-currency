@@ -33,8 +33,8 @@ class CookieProvider extends BaseProvider
     public function get(): string
     {
         return $this->value($this->request->cookie(
-            $this->config->get('key'),
-            $this->config->get('default')
+            $this->config->key,
+            $this->config->default
         ));
     }
 
@@ -47,7 +47,7 @@ class CookieProvider extends BaseProvider
     public function set(string $currency): void
     {
         cookie()->queue(
-            $this->config->get('key'),
+            $this->config->key,
             $this->value($currency)
         );
     }

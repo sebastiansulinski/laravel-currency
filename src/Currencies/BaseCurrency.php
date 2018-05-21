@@ -27,6 +27,17 @@ abstract class BaseCurrency
     }
 
     /**
+     * Convert value to integer.
+     *
+     * @param  float $value
+     * @return int
+     */
+    public function integer(float $value): int
+    {
+        return (int)$value;
+    }
+
+    /**
      * Get formatted value.
      *
      * @param  float $value

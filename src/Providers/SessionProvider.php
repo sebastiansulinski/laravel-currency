@@ -33,8 +33,8 @@ class SessionProvider extends BaseProvider
     public function get(): string
     {
         return $this->value($this->request->session()->get(
-            $this->config->get('key'),
-            $this->config->get('default')
+            $this->config->key,
+            $this->config->default
         ));
     }
 
@@ -47,7 +47,7 @@ class SessionProvider extends BaseProvider
     public function set(string $currency): void
     {
         $this->request->session()->put(
-            $this->config->get('key'),
+            $this->config->key,
             $this->value($currency)
         );
     }
