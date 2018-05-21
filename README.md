@@ -56,13 +56,15 @@ return [
         "gbp" => \SSD\Currency\Currencies\GBP::class,
         "usd" => \SSD\Currency\Currencies\USD::class,
         "eur" => \SSD\Currency\Currencies\EUR::class
-    ]
+    ],
+    "value_as_integer" => false
 ];
 ```
 
 The `key` is used as the session key, which stores the currently selected currency.
 The `default` states the default currency.
 The `currencies` contains a list of available currencies.
+The `value_as_integer` indicates whether your prices are stored as integers or float / decimal.
 
 ## Provider
 
@@ -124,7 +126,8 @@ return [
         "usd" => \SSD\Currency\Currencies\USD::class,
         "eur" => \SSD\Currency\Currencies\EUR::class,
         "jpy" => \App\Components\Currencies\JPY::class
-    ]
+    ],
+    "value_as_integer" => false
 ];
 ```
 
@@ -210,6 +213,15 @@ Now if you'd like to display price based on the selected currency, make sure tha
     'usd' => 17.60,
     'jpy' => 18.50
 ]
+
+// or if you're using prices as integers
+
+[
+    'gbp' => 1000,
+    'eur' => 1156,
+    'usd' => 1760,
+    'jpy' => 1850
+]
 ```
 
 Let's assume our `Product` model has a `prices()` method, which will return the array formatted as above. To use it with the currency you can now simply call:
@@ -248,11 +260,12 @@ The `priceDisplay()` method will return the price with the currency symbol i.e. 
 We have the following methods available on our `Currency` object:
 
 - `decimal($values, $currency = null, $decimal_points = 2)` : gets the value and gives it back in the decimal format.
+- `integer($values, $currency = null)` : gets the value as integer i.e. `20.53` will become `20`, but `2053` will be `2053`.
 - `withPrefix($values, $currency = null, $decimal_points = null)` : gets the value and gives it back with the currency symbol at the beginning.
 - `withPostfix($values, $currency = null, $decimal_points = null)` : gets the value and gives it back with the currency code at the end.
 - `withPrefixAndPostfix($values, $currency = null, $decimal_points = null)` : gets the value and gives it back with the currency symbol and code.
 
-The above 4 methods accept 3 arguments:
+Four of the above methods accept 3 arguments (`integer` method only first 2):
 
 - `$values` : either array as above or a single float / int
 - `$currency` : `null` by default, which is when the currency will be taken from the cookie - otherwise, you can state what currency you'd like to use.
