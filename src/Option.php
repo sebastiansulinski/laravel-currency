@@ -37,6 +37,7 @@ class Option
      * Get object property.
      *
      * @param  string $name
+     * @return mixed
      */
     public function __get(string $name)
     {
