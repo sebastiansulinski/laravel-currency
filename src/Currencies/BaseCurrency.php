@@ -15,6 +15,11 @@ abstract class BaseCurrency
     protected $postfix;
 
     /**
+     * @var string
+     */
+    protected $postfix_separator = '';
+
+    /**
      * Convert value to decimal.
      *
      * @param  float $value
@@ -99,7 +104,7 @@ abstract class BaseCurrency
      */
     public function prefixPostfix(float $value, int $decimals = null, string $dec_point = null, string $thousands_sep = null): string
     {
-        return $this->prefix.$this->value($value, $decimals, $dec_point, $thousands_sep).' '.$this->postfix;
+        return $this->prefix.$this->value($value, $decimals, $dec_point, $thousands_sep).$this->postfix_separator.$this->postfix;
     }
 
     /**
