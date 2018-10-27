@@ -27,10 +27,12 @@ class Currency
      *
      * @param  string|array $values
      * @param  string|null $currency
-     * @param  int $decimal_points
+     * @param  int $decimals
+     * @param  string|null $dec_point
+     * @param  string|null $thousands_sep
      * @return string
      */
-    public function decimal($values, string $currency = null, int $decimal_points = 2): string
+    public function decimal($values, string $currency = null, int $decimals = 2, string $dec_point = null, string $thousands_sep = null): string
     {
         [$className, $value] = $this->classAndValue($values, $currency);
 
@@ -56,10 +58,12 @@ class Currency
      *
      * @param  string|array $values
      * @param  string|null $currency
-     * @param  int|null $decimal_points
+     * @param  int|null $decimals
+     * @param  string|null $dec_point
+     * @param  string|null $thousands_sep
      * @return string
      */
-    public function withPrefix($values, string $currency = null, int $decimal_points = null): string
+    public function withPrefix($values, string $currency = null, int $decimals = null, string $dec_point = null, string $thousands_sep = null): string
     {
         [$className, $value] = $this->classAndValue($values, $currency);
 
@@ -71,10 +75,12 @@ class Currency
      *
      * @param  string|array $values
      * @param  string|null $currency
-     * @param  int|null $decimal_points
+     * @param  int|null $decimals
+     * @param  string|null $dec_point
+     * @param  string|null $thousands_sep
      * @return string
      */
-    public function withPostfix($values, string $currency = null, int $decimal_points = null): string
+    public function withPostfix($values, string $currency = null, int $decimals = null, string $dec_point = null, string $thousands_sep = null): string
     {
         [$className, $value] = $this->classAndValue($values, $currency);
 
@@ -86,10 +92,12 @@ class Currency
      *
      * @param  string|array $values
      * @param  string|null $currency
-     * @param  int|null $decimal_points
+     * @param  int|null $decimals
+     * @param  string|null $dec_point
+     * @param  string|null $thousands_sep
      * @return string
      */
-    public function withPrefixAndPostfix($values, string $currency = null, int $decimal_points = null): string
+    public function withPrefixAndPostfix($values, string $currency = null, int $decimals = null, string $dec_point = null, string $thousands_sep = null): string
     {
         [$className, $value] = $this->classAndValue($values, $currency);
 

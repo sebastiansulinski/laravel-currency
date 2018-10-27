@@ -18,12 +18,14 @@ abstract class BaseCurrency
      * Convert value to decimal.
      *
      * @param  float $value
-     * @param  int $decimal_points
+     * @param  int $decimals
+     * @param  string $dec_point
+     * @param  string $thousands_sep
      * @return string
      */
-    public function decimal(float $value, int $decimal_points = 2): string
+    public function decimal(float $value, int $decimals = 2, string $dec_point = '.', string $thousands_sep = ','): string
     {
-        return number_format($value, $decimal_points);
+        return number_format($value, $decimals, $dec_point, $thousands_sep);
     }
 
     /**
@@ -41,16 +43,18 @@ abstract class BaseCurrency
      * Get formatted value.
      *
      * @param  float $value
-     * @param  int|null $decimal_points
+     * @param  int|null $decimals
+     * @param  string|null $dec_point
+     * @param  string|null $thousands_sep
      * @return string
      */
-    public function value(float $value, int $decimal_points = null): string
+    public function value(float $value, int $decimals = null, string $dec_point = null, string $thousands_sep = null): string
     {
-        if (is_null($decimal_points)) {
+        if (is_null($decimals)) {
             return $value;
         }
 
-        return $this->decimal($value, $decimal_points);
+        return $this->decimal($value, $decimals, $dec_point, $thousands_sep);
     }
 
     /**
@@ -58,12 +62,14 @@ abstract class BaseCurrency
      * with currency symbol.
      *
      * @param  float $value
-     * @param  int|null $decimal_points
+     * @param  int|null $decimals
+     * @param  string|null $dec_point
+     * @param  string|null $thousands_sep
      * @return string
      */
-    public function prefix(float $value, int $decimal_points = null): string
+    public function prefix(float $value, int $decimals = null, string $dec_point = null, string $thousands_sep = null): string
     {
-        return $this->prefix.$this->value($value, $decimal_points);
+        return $this->prefix.$this->value($value, $decimals, $dec_point, $thousands_sep);
     }
 
     /**
@@ -71,12 +77,14 @@ abstract class BaseCurrency
      * with currency label.
      *
      * @param  float $value
-     * @param  int|null $decimal_points
+     * @param  int|null $decimals
+     * @param  string|null $dec_point
+     * @param  string|null $thousands_sep
      * @return string
      */
-    public function postfix(float $value, int $decimal_points = null): string
+    public function postfix(float $value, int $decimals = null, string $dec_point = null, string $thousands_sep = null): string
     {
-        return $this->value($value, $decimal_points).' '.$this->postfix;
+        return $this->value($value, $decimals, $dec_point, $thousands_sep).' '.$this->postfix;
     }
 
     /**
@@ -84,12 +92,14 @@ abstract class BaseCurrency
      * with currency symbol and label.
      *
      * @param  float $value
-     * @param  int|null $decimal_points
+     * @param  int|null $decimals
+     * @param  string|null $dec_point
+     * @param  string|null $thousands_sep
      * @return string
      */
-    public function prefixPostfix(float $value, int $decimal_points = null): string
+    public function prefixPostfix(float $value, int $decimals = null, string $dec_point = null, string $thousands_sep = null): string
     {
-        return $this->prefix.$this->value($value, $decimal_points).' '.$this->postfix;
+        return $this->prefix.$this->value($value, $decimals, $dec_point, $thousands_sep).' '.$this->postfix;
     }
 
     /**
