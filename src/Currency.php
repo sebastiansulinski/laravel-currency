@@ -36,7 +36,7 @@ class Currency
     {
         [$className, $value] = $this->classAndValue($values, $currency);
 
-        return (new $className)->decimal($value, $decimal_points);
+        return (new $className)->decimal($value, $decimals, $dec_point, $thousands_sep);
     }
 
     /**
@@ -67,7 +67,7 @@ class Currency
     {
         [$className, $value] = $this->classAndValue($values, $currency);
 
-        return (new $className)->prefix($value, $decimal_points);
+        return (new $className)->prefix($value, $decimals, $dec_point, $thousands_sep);
     }
 
     /**
@@ -84,7 +84,7 @@ class Currency
     {
         [$className, $value] = $this->classAndValue($values, $currency);
 
-        return (new $className)->postfix($value, $decimal_points);
+        return (new $className)->postfix($value, $decimals, $dec_point, $thousands_sep);
     }
 
     /**
@@ -101,7 +101,7 @@ class Currency
     {
         [$className, $value] = $this->classAndValue($values, $currency);
 
-        return (new $className)->prefixPostfix($value, $decimal_points);
+        return (new $className)->prefixPostfix($value, $decimals, $dec_point, $thousands_sep);
     }
 
     /**
