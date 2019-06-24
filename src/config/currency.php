@@ -33,7 +33,7 @@ return [
     "currencies" => [
         \SSD\Currency\Currencies\GBP::class,
         \SSD\Currency\Currencies\USD::class,
-        \SSD\Currency\Currencies\EUR::class
+        \SSD\Currency\Currencies\EUR::class,
     ],
 
     /*
@@ -45,5 +45,5 @@ return [
     | are stored as integer or float / decimal.
     */
 
-    "value_as_integer" => false
+    "value_as_integer" => false,
 ];

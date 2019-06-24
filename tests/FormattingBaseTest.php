@@ -20,7 +20,7 @@ class FormattingBaseTest extends CurrencyBaseCase
     {
         return new Currency(new CookieProvider(
             new Config(array_merge($this->config, [
-                'value_as_integer' => $asInteger
+                'value_as_integer' => $asInteger,
             ])),
             Request::capture()
         ));
@@ -34,7 +34,7 @@ class FormattingBaseTest extends CurrencyBaseCase
         $result = $this->currency()->decimal([
             'GBP' => 20.53,
             'EUR' => 23.00,
-            'USD' => 35.18
+            'USD' => 35.18,
         ], 'GBP');
 
         $this->assertEquals(20.53, $result);
@@ -43,7 +43,7 @@ class FormattingBaseTest extends CurrencyBaseCase
         $result = $this->currency(true)->decimal([
             'GBP' => 2053,
             'EUR' => 2300,
-            'USD' => 3518
+            'USD' => 3518,
         ], 'GBP');
 
         $this->assertEquals(20.53, $result);
@@ -57,7 +57,7 @@ class FormattingBaseTest extends CurrencyBaseCase
         $result = $this->currency()->integer([
             'GBP' => 20.53,
             'EUR' => 23.00,
-            'USD' => 35.18
+            'USD' => 35.18,
         ], 'GBP');
 
         $this->assertEquals(20, $result);
@@ -66,7 +66,7 @@ class FormattingBaseTest extends CurrencyBaseCase
         $result = $this->currency(true)->integer([
             'GBP' => 2053,
             'EUR' => 2300,
-            'USD' => 3518
+            'USD' => 3518,
         ], 'GBP');
 
         $this->assertEquals(2053, $result);
@@ -80,7 +80,7 @@ class FormattingBaseTest extends CurrencyBaseCase
         $result = $this->currency()->withSymbol([
             'GBP' => 20,
             'EUR' => 23,
-            'USD' => 35
+            'USD' => 35,
         ], 'GBP');
 
         $this->assertEquals('£20', $result);
@@ -89,7 +89,7 @@ class FormattingBaseTest extends CurrencyBaseCase
         $result = $this->currency(true)->withSymbol([
             'GBP' => 2000,
             'EUR' => 2300,
-            'USD' => 3500
+            'USD' => 3500,
         ], 'GBP');
 
         $this->assertEquals('£20', $result);
@@ -103,7 +103,7 @@ class FormattingBaseTest extends CurrencyBaseCase
         $result = $this->currency()->withSymbol([
             'GBP' => 20.53,
             'EUR' => 23.00,
-            'USD' => 35.18
+            'USD' => 35.18,
         ], 'GBP', 2);
 
         $this->assertEquals('£20.53', $result);
@@ -112,7 +112,7 @@ class FormattingBaseTest extends CurrencyBaseCase
         $result = $this->currency(true)->withSymbol([
             'GBP' => 2053,
             'EUR' => 2300,
-            'USD' => 3518
+            'USD' => 3518,
         ], 'GBP', 2);
 
         $this->assertEquals('£20.53', $result);
@@ -126,7 +126,7 @@ class FormattingBaseTest extends CurrencyBaseCase
         $result = $this->currency()->withCode([
             'GBP' => 20,
             'EUR' => 23,
-            'USD' => 35
+            'USD' => 35,
         ], 'EUR');
 
         $this->assertEquals('23 EUR', $result);
@@ -135,7 +135,7 @@ class FormattingBaseTest extends CurrencyBaseCase
         $result = $this->currency(true)->withCode([
             'GBP' => 2000,
             'EUR' => 2300,
-            'USD' => 3500
+            'USD' => 3500,
         ], 'GBP');
 
         $this->assertEquals('20 GBP', $result);
@@ -149,7 +149,7 @@ class FormattingBaseTest extends CurrencyBaseCase
         $result = $this->currency()->withCode([
             'GBP' => 20,
             'EUR' => 23,
-            'USD' => 35
+            'USD' => 35,
         ], 'EUR', 2);
 
         $this->assertEquals('23.00 EUR', $result);
@@ -158,7 +158,7 @@ class FormattingBaseTest extends CurrencyBaseCase
         $result = $this->currency(true)->withCode([
             'GBP' => 2053,
             'EUR' => 2300,
-            'USD' => 3518
+            'USD' => 3518,
         ], 'GBP', 2);
 
         $this->assertEquals('20.53 GBP', $result);
@@ -172,7 +172,7 @@ class FormattingBaseTest extends CurrencyBaseCase
         $result = $this->currency()->withSymbolAndCode([
             'GBP' => 20,
             'EUR' => 23,
-            'USD' => 35
+            'USD' => 35,
         ], 'USD');
 
         $this->assertEquals('$35 USD', $result);
@@ -181,7 +181,7 @@ class FormattingBaseTest extends CurrencyBaseCase
         $result = $this->currency(true)->withSymbolAndCode([
             'GBP' => 2000,
             'EUR' => 2300,
-            'USD' => 3500
+            'USD' => 3500,
         ], 'USD');
 
         $this->assertEquals('$35 USD', $result);
@@ -195,7 +195,7 @@ class FormattingBaseTest extends CurrencyBaseCase
         $result = $this->currency()->withSymbolAndCode([
             'GBP' => 20,
             'EUR' => 23,
-            'USD' => 35
+            'USD' => 35,
         ], 'USD', 2);
 
         $this->assertEquals('$35.00 USD', $result);
@@ -204,9 +204,33 @@ class FormattingBaseTest extends CurrencyBaseCase
         $result = $this->currency(true)->withSymbolAndCode([
             'GBP' => 2053,
             'EUR' => 2300,
-            'USD' => 3518
+            'USD' => 3518,
         ], 'USD', 2);
 
         $this->assertEquals('$35.18 USD', $result);
+    }
+
+    /**
+     * @test
+     */
+    public function displays_symbol_after_the_value_with_a_space()
+    {
+        $result = $this->currency()->withSymbol([
+            'GBP' => 20,
+            'EUR' => 23,
+            'USD' => 35,
+            'PLN' => 75,
+        ], 'PLN', 2);
+
+        $this->assertEquals('75.00 zł', $result);
+
+        $result = $this->currency()->withSymbolAndCode([
+            'GBP' => 20,
+            'EUR' => 23,
+            'USD' => 35,
+            'PLN' => 75,
+        ], 'PLN', 2);
+
+        $this->assertEquals('75.00 zł PLN', $result);
     }
 }

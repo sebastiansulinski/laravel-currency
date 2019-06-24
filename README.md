@@ -55,9 +55,9 @@ return [
     "currencies" => [
         \SSD\Currency\Currencies\GBP::class,
         \SSD\Currency\Currencies\USD::class,
-        \SSD\Currency\Currencies\EUR::class
+        \SSD\Currency\Currencies\EUR::class,
     ],
-    "value_as_integer" => false
+    "value_as_integer" => false,
 ];
 ```
 
@@ -135,11 +135,68 @@ return [
         \SSD\Currency\Currencies\GBP::class,
         \SSD\Currency\Currencies\USD::class,
         \SSD\Currency\Currencies\EUR::class,
-        \App\Components\Currencies\JPY::class
+        \App\Components\Currencies\JPY::class,
     ],
-    "value_as_integer" => false
+    "value_as_integer" => false,
 ];
 ```
+
+## Currencies with symbol after the value
+
+Some currencies place symbol after the value. To indicate it you can overwrite the method `BaseCurrency::symbolAfterValue` and if you need a space between the symbol and value `BaseCurrency::symbolSpace`:
+
+```php
+<?php 
+
+namespace App\Components\Currencies;
+
+use SSD\Currency\Currencies\BaseCurrency;
+
+class PLN extends BaseCurrency
+{
+    /**
+     * Get symbol.
+     *
+     * @return string
+     */
+    public static function symbol(): string
+    {
+        return 'zł';
+    }
+
+    /**
+     * Get code.
+     *
+     * @return string
+     */
+    public static function code(): string
+    {
+        return 'PLN';
+    }
+
+    /**
+     * Determine if symbol should be placed after the value.
+     *
+     * @return bool
+     */
+    protected static function symbolAfterValue(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Determine if there is a space between symbol and the value.
+     *
+     * @return bool
+     */
+    protected static function symbolSpace(): bool
+    {
+        return true;
+    }
+}
+```
+
+The above class would now return `75.00 zł` with `withSymbol` and `75.00 zł PLN` with `withSymbolAndCode` methods.
 
 ## Usage examples
 

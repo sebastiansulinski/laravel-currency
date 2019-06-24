@@ -19,6 +19,26 @@ abstract class BaseCurrency
     abstract public static function code(): string;
 
     /**
+     * Determine if symbol should be placed after the value.
+     *
+     * @return bool
+     */
+    protected static function symbolAfterValue(): bool
+    {
+        return false;
+    }
+
+    /**
+     * Determine if there is a space between symbol and the value.
+     *
+     * @return bool
+     */
+    protected static function symbolSpace(): bool
+    {
+        return false;
+    }
+
+    /**
      * Convert value to decimal.
      *
      * @param  float $value
@@ -66,7 +86,15 @@ abstract class BaseCurrency
      */
     public function withSymbol(float $value, int $decimal_points = null): string
     {
-        return $this->symbol().$this->value($value, $decimal_points);
+        $value = $this->value($value, $decimal_points);
+
+        $space = $this->symbolSpace() ? ' ' : '';
+
+        $arguments = $this->symbolAfterValue() ?
+            [$value, $space, $this->symbol()] : [$this->symbol(), $space, $value];
+
+
+        return sprintf("%s%s%s", ...$arguments);
     }
 
     /**
@@ -91,7 +119,15 @@ abstract class BaseCurrency
      */
     public function withSymbolAndCode(float $value, int $decimal_points = null): string
     {
-        return $this->symbol().$this->value($value, $decimal_points).' '.$this->code();
+        $value = $this->value($value, $decimal_points);
+
+        $space = $this->symbolSpace() ? ' ' : '';
+
+        $arguments = $this->symbolAfterValue() ?
+            [$value, $space, $this->symbol(), $this->code()] :
+            [$this->symbol(), $space, $value, $this->code()];
+
+        return sprintf("%s%s%s %s", ...$arguments);
     }
 
     /**
