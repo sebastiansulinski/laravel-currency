@@ -4,7 +4,7 @@
 
 ## Versions
 
-As of version `v1.3.0`, package requires PHP 7.1. For earlier versions of PHP, please use `v1.2.0`
+As of version `v2.0.0` package requires PHP `7.1.3`, `v1.4.0` requires PHP `7.1` and for earlier versions of PHP, please use `v1.2.0`
 
 ## Installation
 
@@ -51,18 +51,18 @@ This will add a new file `config/currency.php` with the following structure:
 
 return [
     "key" => "currency",
-    "default" => "gbp",
+    "default" => \SSD\Currency\Currencies\GBP::code(),
     "currencies" => [
-        "gbp" => \SSD\Currency\Currencies\GBP::class,
-        "usd" => \SSD\Currency\Currencies\USD::class,
-        "eur" => \SSD\Currency\Currencies\EUR::class
+        \SSD\Currency\Currencies\GBP::class,
+        \SSD\Currency\Currencies\USD::class,
+        \SSD\Currency\Currencies\EUR::class
     ],
     "value_as_integer" => false
 ];
 ```
 
 * The `key` is used as the session key, which stores the currently selected currency.
-* The `default` states the default currency.
+* The `default` states the default currency code.
 * The `currencies` contains a list of available currencies.
 * The `value_as_integer` indicates whether your prices are stored as integers or float / decimal.
 
@@ -102,14 +102,24 @@ use SSD\Currency\Currencies\BaseCurrency;
 class JPY extends BaseCurrency
 {
     /**
-     * @var string
+     * Get symbol.
+     *
+     * @return string
      */
-    protected $prefix = '¥';
+    public static function symbol(): string
+    {
+        return '¥';
+    }
 
     /**
-     * @var string
+     * Get code.
+     *
+     * @return string
      */
-    protected $postfix = 'JPY';
+    public static function code(): string
+    {
+        return 'JPY';
+    }
 }
 ```
 
@@ -120,12 +130,12 @@ All you need to do now to be able to use it is to add it to the `config/currency
 
 return [
     "key" => "currency",
-    "default" => "gbp",
+    "default" => \SSD\Currency\Currencies\GBP::code(),
     "currencies" => [
-        "gbp" => \SSD\Currency\Currencies\GBP::class,
-        "usd" => \SSD\Currency\Currencies\USD::class,
-        "eur" => \SSD\Currency\Currencies\EUR::class,
-        "jpy" => \App\Components\Currencies\JPY::class
+        \SSD\Currency\Currencies\GBP::class,
+        \SSD\Currency\Currencies\USD::class,
+        \SSD\Currency\Currencies\EUR::class,
+        \App\Components\Currencies\JPY::class
     ],
     "value_as_integer" => false
 ];
@@ -156,12 +166,12 @@ Simply bind `change` event to the `select` element using JavaScript:
 
 ```javascript
 // vanilla JavaScript
-(document.getElementById('currency')).addEventListener('change', function(event) {
+(document.getElementById('currency')).addEventListener('change', function (event) {
     window.location.href = event.target.value;
 });
 
 // or using jQuery
-$('#currency').on('change', function() {
+$('#currency').on('change', function () {
     window.location.href = $(this).val();
 });
 ```
@@ -208,19 +218,19 @@ Now if you'd like to display price based on the selected currency, make sure tha
 
 ```php
 [
-    'gbp' => 10.00,
-    'eur' => 11.56,
-    'usd' => 17.60,
-    'jpy' => 18.50
+    'GBP' => 10.00,
+    'EUR' => 11.56,
+    'USD' => 17.60,
+    'JPY' => 18.50
 ]
 
 // or if you're using prices as integers
 
 [
-    'gbp' => 1000,
-    'eur' => 1156,
-    'usd' => 1760,
-    'jpy' => 1850
+    'GBP' => 1000,
+    'EUR' => 1156,
+    'USD' => 1760,
+    'JPY' => 1850
 ]
 ```
 
@@ -235,10 +245,10 @@ Let's assume our `Product` model has a `prices()` method, which will return the 
 public function prices()
 {
     return [
-        'gbp' => $this->price_gbp,
-        'usd' => $this->price_usd,
-        'eur' => $this->price_eur,
-        'jpy' => $this->price_jpy
+        'GBP' => $this->price_gbp,
+        'EUR' => $this->price_usd,
+        'USD' => $this->price_eur,
+        'JPY' => $this->price_jpy
     ];
 }
 
@@ -249,7 +259,7 @@ public function prices()
  */
 public function priceDisplay()
 {
-    return Currency::withPrefix($this->prices(), null, 2);
+    return Currency::withSymbol($this->prices(), null, 2);
 }
 ```
 
@@ -257,18 +267,18 @@ The `priceDisplay()` method will return the price with the currency symbol i.e. 
 
 ## Formatting methods
 
-We have the following methods available on our `Currency` object:
+We have the following methods available on our `Currency` object instance / facade:
 
 - `decimal($values, $currency = null, $decimal_points = 2)` : gets the value and gives it back in the decimal format.
 - `integer($values, $currency = null)` : gets the value as integer i.e. `20.53` will become `20`, but `2053` will be `2053`.
-- `withPrefix($values, $currency = null, $decimal_points = null)` : gets the value and gives it back with the currency symbol at the beginning.
-- `withPostfix($values, $currency = null, $decimal_points = null)` : gets the value and gives it back with the currency code at the end.
-- `withPrefixAndPostfix($values, $currency = null, $decimal_points = null)` : gets the value and gives it back with the currency symbol and code.
+- `withSymbol($values, $currency = null, $decimal_points = null)` : gets the value and gives it back with the currency symbol at the beginning.
+- `withCode($values, $currency = null, $decimal_points = null)` : gets the value and gives it back with the currency code at the end.
+- `withSymbolAndCode($values, $currency = null, $decimal_points = null)` : gets the value and gives it back with the currency symbol and code.
 
 Four of the above methods accept 3 arguments (`integer` method only first 2):
 
 - `$values` : either array as above or a single float / int
-- `$currency` : `null` by default, which is when the currency will be taken from the cookie - otherwise, you can state what currency you'd like to use.
+- `$currency` : currency code - `null` by default, which is when the currency will be taken from the cookie - otherwise, you can state what currency you'd like to use.
 - `$decimal_points` : how many decimal points you'd like it to return the value with.
 
 ## More methods

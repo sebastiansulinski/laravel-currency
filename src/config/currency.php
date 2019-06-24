@@ -20,7 +20,7 @@ return [
     | This value represents default currency.
     */
 
-    "default" => "gbp",
+    "default" => \SSD\Currency\Currencies\GBP::code(),
 
     /*
     |--------------------------------------------------------------------------
@@ -31,9 +31,9 @@ return [
     */
 
     "currencies" => [
-        "gbp" => \SSD\Currency\Currencies\GBP::class,
-        "usd" => \SSD\Currency\Currencies\USD::class,
-        "eur" => \SSD\Currency\Currencies\EUR::class
+        \SSD\Currency\Currencies\GBP::class,
+        \SSD\Currency\Currencies\USD::class,
+        \SSD\Currency\Currencies\EUR::class
     ],
 
     /*

@@ -5,12 +5,22 @@ namespace SSD\Currency\Currencies;
 class GBP extends BaseCurrency
 {
     /**
-     * @var string
+     * Get symbol.
+     *
+     * @return string
      */
-    protected $prefix = '£';
+    public static function symbol(): string
+    {
+        return '£';
+    }
 
     /**
-     * @var string
+     * Get code.
+     *
+     * @return string
      */
-    protected $postfix = 'GBP';
+    public static function code(): string
+    {
+        return 'GBP';
+    }
 }

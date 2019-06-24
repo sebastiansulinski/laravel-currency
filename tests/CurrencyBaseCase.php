@@ -9,14 +9,14 @@ class CurrencyBaseCase extends TestCase
     /**
      * @var array
      */
-    protected $config = null;
+    protected $config;
 
     /**
      * Set up.
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

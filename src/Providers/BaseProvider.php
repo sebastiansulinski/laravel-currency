@@ -22,18 +22,18 @@ abstract class BaseProvider
     }
 
     /**
-     * Format value.
+     * Format code.
      *
-     * @param  string $name
+     * @param  string $code
      * @return string
      */
-    protected function value(string $name): string
+    protected function value(string $code): string
     {
-        return strtolower($name);
+        return strtoupper($code);
     }
 
     /**
-     * Get currency.
+     * Get current currency code.
      *
      * @return string
      */

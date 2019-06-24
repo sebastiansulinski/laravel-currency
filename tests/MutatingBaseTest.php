@@ -42,17 +42,17 @@ class MutatingBaseTest extends CurrencyBaseCase
         );
 
         $provider->shouldReceive('set')
-                 ->with('eur')
-                 ->andReturn('eur');
+                 ->with('EUR')
+                 ->andReturn('EUR');
 
         $provider->shouldReceive('get')
-                 ->andReturn('eur');
+                 ->andReturn('EUR');
 
         $currency = new Currency($provider);
 
-        $currency->set('eur');
+        $currency->set('EUR');
 
-        $this->assertEquals('eur', $currency->get());
+        $this->assertEquals('EUR', $currency->get());
     }
 
     /**
@@ -86,15 +86,15 @@ class MutatingBaseTest extends CurrencyBaseCase
         );
 
         $provider->shouldReceive('set')
-                 ->with('usd');
+                 ->with('USD');
 
         $provider->shouldReceive('is')
                  ->andReturn(true);
 
         $currency = new Currency($provider);
 
-        $currency->set('usd');
+        $currency->set('USD');
 
-        $this->assertTrue($currency->is('usd'));
+        $this->assertTrue($currency->is('USD'));
     }
 }

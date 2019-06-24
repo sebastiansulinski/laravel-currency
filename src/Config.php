@@ -2,7 +2,7 @@
 
 namespace SSD\Currency;
 
-use InvalidArgumentException;
+use Illuminate\Support\Collection;
 
 /**
  * Class Config
@@ -24,7 +24,7 @@ class Config
     /**
      * Config constructor.
      *
-     * @param array $config
+     * @param  array $config
      */
     public function __construct(array $config)
     {
@@ -32,19 +32,31 @@ class Config
     }
 
     /**
+     * Get currency class.
+     *
+     * @param  string $code
+     * @return string
+     */
+    public function getClass(string $code): string
+    {
+        $classes = new Collection($this->attributes['currencies']);
+
+        return $classes->filter(function (string $currency) use ($code) {
+                return $currency::code() === $code;
+            })->first() ?? $classes->filter(function (string $currency) {
+                return $currency::code() === $this->attributes['default'];
+            })->first();
+    }
+
+    /**
      * Get value associated with a given key.
      *
      * @param  string $name
      * @return mixed
-     * @throws InvalidArgumentException
      */
     public function get(string $name)
     {
-        if (!array_key_exists($name, $this->attributes)) {
-            throw new InvalidArgumentException("Key {$name} does not exist");
-        }
-
-        return $this->attributes[$name];
+        return $this->attributes[$name] ?? null;
     }
 
     /**

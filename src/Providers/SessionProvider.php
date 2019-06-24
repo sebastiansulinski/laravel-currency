@@ -26,7 +26,7 @@ class SessionProvider extends BaseProvider
     }
 
     /**
-     * Get current currency.
+     * Get current currency code.
      *
      * @return string
      */

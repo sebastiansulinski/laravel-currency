@@ -2,9 +2,17 @@
 
 namespace SSD\Currency;
 
-use InvalidArgumentException;
 use SSD\Currency\Providers\BaseProvider;
 
+/**
+ * Class Currency
+ *
+ * @package SSD\Currency
+ *
+ * @method string get()
+ * @method void set(string $currency)
+ * @method bool is(string $currency)
+ */
 class Currency
 {
     /**
@@ -59,11 +67,11 @@ class Currency
      * @param  int|null $decimal_points
      * @return string
      */
-    public function withPrefix($values, string $currency = null, int $decimal_points = null): string
+    public function withSymbol($values, string $currency = null, int $decimal_points = null): string
     {
         [$className, $value] = $this->classAndValue($values, $currency);
 
-        return (new $className)->prefix($value, $decimal_points);
+        return (new $className)->withSymbol($value, $decimal_points);
     }
 
     /**
@@ -74,11 +82,11 @@ class Currency
      * @param  int|null $decimal_points
      * @return string
      */
-    public function withPostfix($values, string $currency = null, int $decimal_points = null): string
+    public function withCode($values, string $currency = null, int $decimal_points = null): string
     {
         [$className, $value] = $this->classAndValue($values, $currency);
 
-        return (new $className)->postfix($value, $decimal_points);
+        return (new $className)->withCode($value, $decimal_points);
     }
 
     /**
@@ -89,11 +97,11 @@ class Currency
      * @param  int|null $decimal_points
      * @return string
      */
-    public function withPrefixAndPostfix($values, string $currency = null, int $decimal_points = null): string
+    public function withSymbolAndCode($values, string $currency = null, int $decimal_points = null): string
     {
         [$className, $value] = $this->classAndValue($values, $currency);
 
-        return (new $className)->prefixPostfix($value, $decimal_points);
+        return (new $className)->withSymbolAndCode($value, $decimal_points);
     }
 
     /**
@@ -125,9 +133,9 @@ class Currency
      */
     private function getClass(string $currency = null): string
     {
-        $currency = !is_null($currency) ? strtolower($currency) : $this->provider->get();
-
-        return $this->provider->config->get('currencies')[$currency];
+        return $this->provider->config->getClass(
+            strtoupper($currency ?? $this->provider->get())
+        );
     }
 
     /**
@@ -139,11 +147,7 @@ class Currency
      */
     private function getValue(array $values, string $currency = null): string
     {
-        $currency = !is_null($currency) ? strtolower($currency) : $this->provider->get();
-
-        $values = array_change_key_case($values);
-
-        return $values[$currency];
+        return $values[strtoupper($currency ?? $this->provider->get())];
     }
 
     /**
@@ -190,10 +194,8 @@ class Currency
      */
     public function __call(string $name, array $arguments)
     {
-        if (!in_array($name, ['get', 'set', 'is'])) {
-            throw new InvalidArgumentException("Invalid method name");
+        if (in_array($name, ['get', 'set', 'is'])) {
+            return call_user_func_array([$this->provider, $name], $arguments);
         }
-
-        return call_user_func_array([$this->provider, $name], $arguments);
     }
 }

@@ -32,19 +32,19 @@ class FormattingBaseTest extends CurrencyBaseCase
     public function pulls_value_as_decimal()
     {
         $result = $this->currency()->decimal([
-            'gbp' => 20.53,
-            'eur' => 23.00,
-            'usd' => 35.18
-        ], 'gbp');
+            'GBP' => 20.53,
+            'EUR' => 23.00,
+            'USD' => 35.18
+        ], 'GBP');
 
         $this->assertEquals(20.53, $result);
 
 
         $result = $this->currency(true)->decimal([
-            'gbp' => 2053,
-            'eur' => 2300,
-            'usd' => 3518
-        ], 'gbp');
+            'GBP' => 2053,
+            'EUR' => 2300,
+            'USD' => 3518
+        ], 'GBP');
 
         $this->assertEquals(20.53, $result);
     }
@@ -55,19 +55,19 @@ class FormattingBaseTest extends CurrencyBaseCase
     public function pulls_value_as_integer()
     {
         $result = $this->currency()->integer([
-            'gbp' => 20.53,
-            'eur' => 23.00,
-            'usd' => 35.18
-        ], 'gbp');
+            'GBP' => 20.53,
+            'EUR' => 23.00,
+            'USD' => 35.18
+        ], 'GBP');
 
         $this->assertEquals(20, $result);
 
 
         $result = $this->currency(true)->integer([
-            'gbp' => 2053,
-            'eur' => 2300,
-            'usd' => 3518
-        ], 'gbp');
+            'GBP' => 2053,
+            'EUR' => 2300,
+            'USD' => 3518
+        ], 'GBP');
 
         $this->assertEquals(2053, $result);
     }
@@ -75,22 +75,22 @@ class FormattingBaseTest extends CurrencyBaseCase
     /**
      * @test
      */
-    public function pulls_value_with_prefix_without_decimals()
+    public function pulls_value_with_symbol_without_decimals()
     {
-        $result = $this->currency()->withPrefix([
-            'gbp' => 20,
-            'eur' => 23,
-            'usd' => 35
-        ], 'gbp');
+        $result = $this->currency()->withSymbol([
+            'GBP' => 20,
+            'EUR' => 23,
+            'USD' => 35
+        ], 'GBP');
 
         $this->assertEquals('£20', $result);
 
 
-        $result = $this->currency(true)->withPrefix([
-            'gbp' => 2000,
-            'eur' => 2300,
-            'usd' => 3500
-        ], 'gbp');
+        $result = $this->currency(true)->withSymbol([
+            'GBP' => 2000,
+            'EUR' => 2300,
+            'USD' => 3500
+        ], 'GBP');
 
         $this->assertEquals('£20', $result);
     }
@@ -98,22 +98,22 @@ class FormattingBaseTest extends CurrencyBaseCase
     /**
      * @test
      */
-    public function pulls_value_with_prefix_with_two_decimals()
+    public function pulls_value_with_symbol_with_two_decimals()
     {
-        $result = $this->currency()->withPrefix([
-            'gbp' => 20.53,
-            'eur' => 23.00,
-            'usd' => 35.18
-        ], 'gbp', 2);
+        $result = $this->currency()->withSymbol([
+            'GBP' => 20.53,
+            'EUR' => 23.00,
+            'USD' => 35.18
+        ], 'GBP', 2);
 
         $this->assertEquals('£20.53', $result);
 
 
-        $result = $this->currency(true)->withPrefix([
-            'gbp' => 2053,
-            'eur' => 2300,
-            'usd' => 3518
-        ], 'gbp', 2);
+        $result = $this->currency(true)->withSymbol([
+            'GBP' => 2053,
+            'EUR' => 2300,
+            'USD' => 3518
+        ], 'GBP', 2);
 
         $this->assertEquals('£20.53', $result);
     }
@@ -121,22 +121,22 @@ class FormattingBaseTest extends CurrencyBaseCase
     /**
      * @test
      */
-    public function pulls_value_with_postfix_without_decimals()
+    public function pulls_value_with_code_without_decimals()
     {
-        $result = $this->currency()->withPostfix([
-            'gbp' => 20,
-            'eur' => 23,
-            'usd' => 35
-        ], 'eur');
+        $result = $this->currency()->withCode([
+            'GBP' => 20,
+            'EUR' => 23,
+            'USD' => 35
+        ], 'EUR');
 
         $this->assertEquals('23 EUR', $result);
 
 
-        $result = $this->currency(true)->withPostfix([
-            'gbp' => 2000,
-            'eur' => 2300,
-            'usd' => 3500
-        ], 'gbp');
+        $result = $this->currency(true)->withCode([
+            'GBP' => 2000,
+            'EUR' => 2300,
+            'USD' => 3500
+        ], 'GBP');
 
         $this->assertEquals('20 GBP', $result);
     }
@@ -144,22 +144,22 @@ class FormattingBaseTest extends CurrencyBaseCase
     /**
      * @test
      */
-    public function pulls_value_with_postfix_with_two_decimals()
+    public function pulls_value_with_code_with_two_decimals()
     {
-        $result = $this->currency()->withPostfix([
-            'gbp' => 20,
-            'eur' => 23,
-            'usd' => 35
-        ], 'eur', 2);
+        $result = $this->currency()->withCode([
+            'GBP' => 20,
+            'EUR' => 23,
+            'USD' => 35
+        ], 'EUR', 2);
 
         $this->assertEquals('23.00 EUR', $result);
 
 
-        $result = $this->currency(true)->withPostfix([
-            'gbp' => 2053,
-            'eur' => 2300,
-            'usd' => 3518
-        ], 'gbp', 2);
+        $result = $this->currency(true)->withCode([
+            'GBP' => 2053,
+            'EUR' => 2300,
+            'USD' => 3518
+        ], 'GBP', 2);
 
         $this->assertEquals('20.53 GBP', $result);
     }
@@ -167,22 +167,22 @@ class FormattingBaseTest extends CurrencyBaseCase
     /**
      * @test
      */
-    public function pulls_value_with_prefix_and_postfix_without_decimals()
+    public function pulls_value_with_symbol_and_code_without_decimals()
     {
-        $result = $this->currency()->withPrefixAndPostfix([
-            'gbp' => 20,
-            'eur' => 23,
-            'usd' => 35
-        ], 'usd');
+        $result = $this->currency()->withSymbolAndCode([
+            'GBP' => 20,
+            'EUR' => 23,
+            'USD' => 35
+        ], 'USD');
 
         $this->assertEquals('$35 USD', $result);
 
 
-        $result = $this->currency(true)->withPrefixAndPostfix([
-            'gbp' => 2000,
-            'eur' => 2300,
-            'usd' => 3500
-        ], 'usd');
+        $result = $this->currency(true)->withSymbolAndCode([
+            'GBP' => 2000,
+            'EUR' => 2300,
+            'USD' => 3500
+        ], 'USD');
 
         $this->assertEquals('$35 USD', $result);
     }
@@ -190,22 +190,22 @@ class FormattingBaseTest extends CurrencyBaseCase
     /**
      * @test
      */
-    public function pulls_value_with_prefix_and_postfix_with_two_decimals()
+    public function pulls_value_with_symbol_and_code_with_two_decimals()
     {
-        $result = $this->currency()->withPrefixAndPostfix([
-            'gbp' => 20,
-            'eur' => 23,
-            'usd' => 35
-        ], 'usd', 2);
+        $result = $this->currency()->withSymbolAndCode([
+            'GBP' => 20,
+            'EUR' => 23,
+            'USD' => 35
+        ], 'USD', 2);
 
         $this->assertEquals('$35.00 USD', $result);
 
 
-        $result = $this->currency(true)->withPrefixAndPostfix([
-            'gbp' => 2053,
-            'eur' => 2300,
-            'usd' => 3518
-        ], 'usd', 2);
+        $result = $this->currency(true)->withSymbolAndCode([
+            'GBP' => 2053,
+            'EUR' => 2300,
+            'USD' => 3518
+        ], 'USD', 2);
 
         $this->assertEquals('$35.18 USD', $result);
     }

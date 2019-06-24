@@ -2,11 +2,11 @@
 
 return [
     "key" => "currency",
-    "default" => "gbp",
+    "default" => \SSD\Currency\Currencies\GBP::code(),
     "currencies" => [
-        "gbp" => \SSD\Currency\Currencies\GBP::class,
-        "usd" => \SSD\Currency\Currencies\USD::class,
-        "eur" => \SSD\Currency\Currencies\EUR::class
+        \SSD\Currency\Currencies\GBP::class,
+        \SSD\Currency\Currencies\USD::class,
+        \SSD\Currency\Currencies\EUR::class
     ],
     "value_as_integer" => false
 ];

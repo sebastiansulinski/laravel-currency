@@ -5,12 +5,22 @@ namespace SSD\Currency\Currencies;
 class USD extends BaseCurrency
 {
     /**
-     * @var string
+     * Get symbol.
+     *
+     * @return string
      */
-    protected $prefix = '$';
+    public static function symbol(): string
+    {
+        return '$';
+    }
 
     /**
-     * @var string
+     * Get code.
+     *
+     * @return string
      */
-    protected $postfix = 'USD';
+    public static function code(): string
+    {
+        return 'USD';
+    }
 }

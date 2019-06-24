@@ -32,7 +32,6 @@ class CurrencyServiceProvider extends ServiceProvider
                 new Config($app->make('config')->get('currency')),
                 $app->make('request')
             ));
-
         });
     }
 }

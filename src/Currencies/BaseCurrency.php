@@ -5,14 +5,18 @@ namespace SSD\Currency\Currencies;
 abstract class BaseCurrency
 {
     /**
-     * @var string
+     * Get symbol.
+     *
+     * @return string
      */
-    protected $prefix;
+    abstract public static function symbol(): string;
 
     /**
-     * @var string
+     * Get code.
+     *
+     * @return string
      */
-    protected $postfix;
+    abstract public static function code(): string;
 
     /**
      * Convert value to decimal.
@@ -54,42 +58,40 @@ abstract class BaseCurrency
     }
 
     /**
-     * Display value as decimal
-     * with currency symbol.
+     * Display value as decimal with currency symbol.
      *
      * @param  float $value
      * @param  int|null $decimal_points
      * @return string
      */
-    public function prefix(float $value, int $decimal_points = null): string
+    public function withSymbol(float $value, int $decimal_points = null): string
     {
-        return $this->prefix.$this->value($value, $decimal_points);
+        return $this->symbol().$this->value($value, $decimal_points);
+    }
+
+    /**
+     * Display value as decimal with currency code.
+     *
+     * @param  float $value
+     * @param  int|null $decimal_points
+     * @return string
+     */
+    public function withCode(float $value, int $decimal_points = null): string
+    {
+        return $this->value($value, $decimal_points).' '.$this->code();
     }
 
     /**
      * Display value as decimal
-     * with currency label.
+     * with currency symbol and code.
      *
      * @param  float $value
      * @param  int|null $decimal_points
      * @return string
      */
-    public function postfix(float $value, int $decimal_points = null): string
+    public function withSymbolAndCode(float $value, int $decimal_points = null): string
     {
-        return $this->value($value, $decimal_points).' '.$this->postfix;
-    }
-
-    /**
-     * Display value as decimal
-     * with currency symbol and label.
-     *
-     * @param  float $value
-     * @param  int|null $decimal_points
-     * @return string
-     */
-    public function prefixPostfix(float $value, int $decimal_points = null): string
-    {
-        return $this->prefix.$this->value($value, $decimal_points).' '.$this->postfix;
+        return $this->symbol().$this->value($value, $decimal_points).' '.$this->code();
     }
 
     /**
@@ -99,6 +101,6 @@ abstract class BaseCurrency
      */
     public function label(): string
     {
-        return $this->postfix.' ('.$this->prefix.')';
+        return $this->code().' ('.$this->symbol().')';
     }
 }
