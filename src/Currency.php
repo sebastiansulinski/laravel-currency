@@ -2,6 +2,7 @@
 
 namespace SSD\Currency;
 
+use BadMethodCallException;
 use SSD\Currency\Providers\BaseProvider;
 
 /**
@@ -194,8 +195,10 @@ class Currency
      */
     public function __call(string $name, array $arguments)
     {
-        if (in_array($name, ['get', 'set', 'is'])) {
-            return call_user_func_array([$this->provider, $name], $arguments);
+        if (!in_array($name, ['get', 'set', 'is'])) {
+            throw new BadMethodCallException('Method {$name} does not exist in '.__FILE__);
         }
+
+        return call_user_func_array([$this->provider, $name], $arguments);
     }
 }
