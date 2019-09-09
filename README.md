@@ -4,7 +4,7 @@
 
 ## Versions
 
-As of version `v2.0.0` package requires PHP `7.1.3`, `v1.4.0` requires PHP `7.1` and for earlier versions of PHP, please use `v1.2.0`
+As of version `v2.2.0` package requries PHP `7.2.0`, `v2.0.0` requires PHP `7.1.3`, `v1.4.0` requires PHP `7.1` and for earlier versions of PHP, please use `v1.2.0`
 
 ## Installation
 
