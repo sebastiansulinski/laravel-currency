@@ -2,7 +2,7 @@
     "name": "sebastiansulinski/laravel-currency",
     "description": "Currency component for Laravel 8+",
     "require": {
-        "php": "^7.4",
+        "php": "^7.4 || ^8.0",
         "illuminate/http": "^8.0",
         "illuminate/support": "^8.0"
     },
