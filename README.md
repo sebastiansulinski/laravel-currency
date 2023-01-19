@@ -1,10 +1,6 @@
-# Currency component for Laravel 5+
+# Currency component for Laravel 9
 
 [![Build Status](https://travis-ci.org/sebastiansulinski/laravel-currency.svg?branch=master)](https://travis-ci.org/sebastiansulinski/laravel-currency)
-
-## Versions
-
-As of version `v2.3.0` package requires `Laravel ^7.0`.
 
 ## Installation
 
