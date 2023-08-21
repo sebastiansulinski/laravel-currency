@@ -2,12 +2,10 @@
 
 namespace SSD\Currency\Currencies;
 
-class USD extends BaseCurrency
+class USD extends Currency
 {
     /**
      * Get symbol.
-     *
-     * @return string
      */
     public static function symbol(): string
     {
@@ -16,8 +14,6 @@ class USD extends BaseCurrency
 
     /**
      * Get code.
-     *
-     * @return string
      */
     public static function code(): string
     {

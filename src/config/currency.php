@@ -1,6 +1,21 @@
 <?php
 
+use SSD\Currency\Currencies\EUR;
+use SSD\Currency\Currencies\GBP;
+use SSD\Currency\Currencies\USD;
+
 return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Session store.
+    |--------------------------------------------------------------------------
+    |
+    | This value represents the store used to persist selected currency.
+    | Currently available options: 'cookie', 'session'.
+    */
+
+    'store' => 'cookie',
 
     /*
     |--------------------------------------------------------------------------
@@ -10,7 +25,7 @@ return [
     | This value is the name of the index representing the selected currency.
     */
 
-    "key" => "currency",
+    'key' => 'currency',
 
     /*
     |--------------------------------------------------------------------------
@@ -20,7 +35,7 @@ return [
     | This value represents default currency.
     */
 
-    "default" => \SSD\Currency\Currencies\GBP::code(),
+    'default' => GBP::code(),
 
     /*
     |--------------------------------------------------------------------------
@@ -30,10 +45,10 @@ return [
     | This value represents the list of available currencies.
     */
 
-    "currencies" => [
-        \SSD\Currency\Currencies\GBP::class,
-        \SSD\Currency\Currencies\USD::class,
-        \SSD\Currency\Currencies\EUR::class,
+    'currencies' => [
+        GBP::class,
+        USD::class,
+        EUR::class,
     ],
 
     /*
@@ -45,5 +60,5 @@ return [
     | are stored as integer or float / decimal.
     */
 
-    "value_as_integer" => false,
+    'value_as_integer' => false,
 ];

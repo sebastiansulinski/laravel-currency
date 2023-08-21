@@ -2,36 +2,29 @@
 
 namespace SSD\Currency;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use SSD\Currency\Providers\CookieProvider;
 
 class CurrencyServiceProvider extends ServiceProvider
 {
     /**
-     * Perform post-registration booting of services.
-     *
-     * @return void
+     * Register the service provider.
      */
-    public function boot()
+    public function register(): void
     {
-        $this->publishes([
-            __DIR__.'/config/currency.php' => config_path('currency.php')
-        ]);
+        $this->app->singleton('currency', fn(Application $app) => new CurrencyService(
+            $app->make(CurrencyStoreManager::class)->driver(),
+            $app->make('config')->get('currency')
+        ));
     }
 
     /**
-     * Register the service provider.
-     *
-     * @return void
+     * Perform post-registration booting of services.
      */
-    public function register()
+    public function boot(): void
     {
-        $this->app->singleton('currency', function ($app) {
-
-            return new Currency(new CookieProvider(
-                new Config($app->make('config')->get('currency')),
-                $app->make('request')
-            ));
-        });
+        $this->publishes([
+            __DIR__.'/config/currency.php' => config_path('currency.php'),
+        ]);
     }
 }

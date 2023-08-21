@@ -2,49 +2,17 @@
 
 namespace SSD\Currency;
 
-use InvalidArgumentException;
-use SSD\Currency\Currencies\BaseCurrency;
+use SSD\Currency\Currencies\Currency;
 
-class Option
+readonly class Option
 {
-    /**
-     * Option value.
-     *
-     * @var string
-     */
-    private $value;
+    public string $label;
 
-    /**
-     * Option label.
-     *
-     * @var string
-     */
-    private $label;
+    public string $value;
 
-    /**
-     * Option constructor.
-     *
-     * @param  string $value
-     * @param  \SSD\Currency\Currencies\BaseCurrency $currency
-     */
-    public function __construct(string $value, BaseCurrency $currency)
+    public function __construct(Currency $currency)
     {
-        $this->value = $value;
+        $this->value = $currency->code();
         $this->label = $currency->label();
-    }
-
-    /**
-     * Get object property.
-     *
-     * @param  string $name
-     * @return mixed
-     */
-    public function __get(string $name)
-    {
-        if (!in_array($name, ['value', 'label'])) {
-            throw new InvalidArgumentException("Property {$name} does not exist");
-        }
-
-        return $this->{$name};
     }
 }

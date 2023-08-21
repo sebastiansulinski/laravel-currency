@@ -3,29 +3,12 @@
 namespace SSDTest;
 
 use Illuminate\Http\Request;
-
 use SSD\Currency\Config;
-use SSD\Currency\Currency;
-use SSD\Currency\Providers\CookieProvider;
+use SSD\Currency\CurrencyService;
+use SSD\Currency\Stores\CookieStore;
 
 class FormattingBaseTest extends CurrencyBaseCase
 {
-    /**
-     * Instantiate Currency.
-     *
-     * @param  bool $asInteger
-     * @return \SSD\Currency\Currency
-     */
-    public function currency(bool $asInteger = false): Currency
-    {
-        return new Currency(new CookieProvider(
-            new Config(array_merge($this->config, [
-                'value_as_integer' => $asInteger,
-            ])),
-            Request::capture()
-        ));
-    }
-
     /**
      * @test
      */
@@ -39,7 +22,6 @@ class FormattingBaseTest extends CurrencyBaseCase
 
         $this->assertEquals(20.53, $result);
 
-
         $result = $this->currency(true)->decimal([
             'GBP' => 2053,
             'EUR' => 2300,
@@ -47,6 +29,19 @@ class FormattingBaseTest extends CurrencyBaseCase
         ], 'GBP');
 
         $this->assertEquals(20.53, $result);
+    }
+
+    /**
+     * Instantiate Currency.
+     */
+    public function currency(bool $asInteger = false): CurrencyService
+    {
+        return new CurrencyService(new CookieStore(
+            new Config(array_merge($this->config, [
+                'value_as_integer' => $asInteger,
+            ])),
+            Request::capture()
+        ));
     }
 
     /**
@@ -61,7 +56,6 @@ class FormattingBaseTest extends CurrencyBaseCase
         ], 'GBP');
 
         $this->assertEquals(20, $result);
-
 
         $result = $this->currency(true)->integer([
             'GBP' => 2053,
@@ -85,7 +79,6 @@ class FormattingBaseTest extends CurrencyBaseCase
 
         $this->assertEquals('£20', $result);
 
-
         $result = $this->currency(true)->withSymbol([
             'GBP' => 2000,
             'EUR' => 2300,
@@ -107,7 +100,6 @@ class FormattingBaseTest extends CurrencyBaseCase
         ], 'GBP', 2);
 
         $this->assertEquals('£20.53', $result);
-
 
         $result = $this->currency(true)->withSymbol([
             'GBP' => 2053,
@@ -131,7 +123,6 @@ class FormattingBaseTest extends CurrencyBaseCase
 
         $this->assertEquals('23 EUR', $result);
 
-
         $result = $this->currency(true)->withCode([
             'GBP' => 2000,
             'EUR' => 2300,
@@ -153,7 +144,6 @@ class FormattingBaseTest extends CurrencyBaseCase
         ], 'EUR', 2);
 
         $this->assertEquals('23.00 EUR', $result);
-
 
         $result = $this->currency(true)->withCode([
             'GBP' => 2053,
@@ -177,7 +167,6 @@ class FormattingBaseTest extends CurrencyBaseCase
 
         $this->assertEquals('$35 USD', $result);
 
-
         $result = $this->currency(true)->withSymbolAndCode([
             'GBP' => 2000,
             'EUR' => 2300,
@@ -199,7 +188,6 @@ class FormattingBaseTest extends CurrencyBaseCase
         ], 'USD', 2);
 
         $this->assertEquals('$35.00 USD', $result);
-
 
         $result = $this->currency(true)->withSymbolAndCode([
             'GBP' => 2053,

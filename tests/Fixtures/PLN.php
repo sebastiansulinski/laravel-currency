@@ -2,14 +2,12 @@
 
 namespace SSDTest\Fixtures;
 
-use SSD\Currency\Currencies\BaseCurrency;
+use SSD\Currency\Currencies\Currency;
 
-class PLN extends BaseCurrency
+class PLN extends Currency
 {
     /**
      * Get symbol.
-     *
-     * @return string
      */
     public static function symbol(): string
     {
@@ -18,8 +16,6 @@ class PLN extends BaseCurrency
 
     /**
      * Get code.
-     *
-     * @return string
      */
     public static function code(): string
     {
@@ -28,8 +24,6 @@ class PLN extends BaseCurrency
 
     /**
      * Determine if symbol should be placed after the value.
-     *
-     * @return bool
      */
     protected static function symbolAfterValue(): bool
     {
@@ -38,8 +32,6 @@ class PLN extends BaseCurrency
 
     /**
      * Determine if there is a space between symbol and the value.
-     *
-     * @return bool
      */
     protected static function symbolSpace(): bool
     {

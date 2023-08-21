@@ -1,13 +1,13 @@
 <?php
 
 return [
-    "key" => "currency",
-    "default" => \SSD\Currency\Currencies\GBP::code(),
-    "currencies" => [
+    'key' => 'currency',
+    'default' => \SSD\Currency\Currencies\GBP::code(),
+    'currencies' => [
         \SSD\Currency\Currencies\GBP::class,
         \SSD\Currency\Currencies\USD::class,
         \SSD\Currency\Currencies\EUR::class,
         \SSDTest\Fixtures\PLN::class,
     ],
-    "value_as_integer" => false,
+    'value_as_integer' => false,
 ];

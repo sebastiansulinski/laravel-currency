@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Facade;
 /**
  * Class CurrencyFacade
  *
- * @package SSD\Currency
  *
  * @method static string decimal($values, string $currency = null, int $decimal_points = 2)
  * @method static int integer($values, string $currency = null)
@@ -20,7 +19,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static void set(string $currency)
  * @method static bool is(string $currency)
  *
- * @see \SSD\Currency\Currency
+ * @see \SSD\Currency\CurrencyService
  */
 class CurrencyFacade extends Facade
 {

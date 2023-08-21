@@ -2,12 +2,11 @@
 
 namespace SSDTest;
 
-use Mockery as m;
 use Illuminate\Http\Request;
-
+use Mockery as m;
 use SSD\Currency\Config;
-use SSD\Currency\Currency;
-use SSD\Currency\Providers\CookieProvider;
+use SSD\Currency\CurrencyService;
+use SSD\Currency\Stores\CookieStore;
 
 class MutatingBaseTest extends CurrencyBaseCase
 {
@@ -18,12 +17,12 @@ class MutatingBaseTest extends CurrencyBaseCase
     {
         $config = new Config($this->config);
 
-        $currency = new Currency(new CookieProvider(
+        $currency = new CurrencyService(new CookieStore(
             $config,
             Request::capture()
         ));
 
-        $this->assertEquals($config->get('default'), $currency->get());
+        $this->assertEquals($config->default, $currency->get());
     }
 
     /**
@@ -37,18 +36,18 @@ class MutatingBaseTest extends CurrencyBaseCase
             'SSD\Currency\Providers\CookieProvider',
             [
                 $config,
-                Request::capture()
+                Request::capture(),
             ]
         );
 
         $provider->shouldReceive('set')
-                 ->with('EUR')
-                 ->andReturn('EUR');
+            ->with('EUR')
+            ->andReturn('EUR');
 
         $provider->shouldReceive('get')
-                 ->andReturn('EUR');
+            ->andReturn('EUR');
 
-        $currency = new Currency($provider);
+        $currency = new CurrencyService($provider);
 
         $currency->set('EUR');
 
@@ -62,12 +61,12 @@ class MutatingBaseTest extends CurrencyBaseCase
     {
         $config = new Config($this->config);
 
-        $currency = new Currency(new CookieProvider(
+        $currency = new CurrencyService(new CookieStore(
             $config,
             Request::capture()
         ));
 
-        $this->assertTrue($currency->is($config->get('default')));
+        $this->assertTrue($currency->is($config->default));
     }
 
     /**
@@ -81,17 +80,17 @@ class MutatingBaseTest extends CurrencyBaseCase
             'SSD\Currency\Providers\CookieProvider',
             [
                 $config,
-                Request::capture()
+                Request::capture(),
             ]
         );
 
         $provider->shouldReceive('set')
-                 ->with('USD');
+            ->with('USD');
 
         $provider->shouldReceive('is')
-                 ->andReturn(true);
+            ->andReturn(true);
 
-        $currency = new Currency($provider);
+        $currency = new CurrencyService($provider);
 
         $currency->set('USD');
 

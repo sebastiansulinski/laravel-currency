@@ -12,7 +12,8 @@ composer require sebastiansulinski/laravel-currency
 
 ### Service Provider and Facade
 
-To use the package with the IOC Container, add its `SSD\Currency\CurrencyServiceProvider` to the list of providers inside of the `config/app.php` under the `providers`:
+To use the package with the IOC Container, add its `SSD\Currency\CurrencyServiceProvider` to the list of providers
+inside of the `config/app.php` under the `providers`:
 
 ```php
 
@@ -86,16 +87,17 @@ If you'd like to add more, first create a new currency class, which:
 
 - extends `SSD\Currency\Currencies\BaseCurrency`
 
-For instance, implementation for Japanese Yen would be (assuming you keep your currencies under App\Components\Currencies namespace):
+For instance, implementation for Japanese Yen would be (assuming you keep your currencies under
+App\Components\Currencies namespace):
 
 ```php
 <?php 
 
 namespace App\Components\Currencies;
 
-use SSD\Currency\Currencies\BaseCurrency;
+use SSD\Currency\Currencies\Currency;
 
-class JPY extends BaseCurrency
+class JPY extends Currency
 {
     /**
      * Get symbol.
@@ -139,16 +141,18 @@ return [
 
 ## Currencies with symbol after the value
 
-Some currencies place symbol after the value. To indicate it you can overwrite the method `BaseCurrency::symbolAfterValue` and if you need a space between the symbol and value `BaseCurrency::symbolSpace`:
+Some currencies place symbol after the value. To indicate it you can overwrite the
+method `BaseCurrency::symbolAfterValue` and if you need a space between the symbol and
+value `BaseCurrency::symbolSpace`:
 
 ```php
 <?php 
 
 namespace App\Components\Currencies;
 
-use SSD\Currency\Currencies\BaseCurrency;
+use SSD\Currency\Currencies\Currency;
 
-class PLN extends BaseCurrency
+class PLN extends Currency
 {
     /**
      * Get symbol.
@@ -196,36 +200,41 @@ The above class would now return `75.00 zł` with `withSymbol` and `75.00 zł PL
 
 ## Usage examples
 
-The most common way of displaying currencies is to either have them displayed as clickable buttons or as a form `select` menu, which is what I'm going to demonstrate below.
+The most common way of displaying currencies is to either have them displayed as clickable buttons or as a form `select`
+menu, which is what I'm going to demonstrate below.
 
-First let's create a form select element with all options displayed. We can either use a `Currency` facade or simply pull `currency` from within the container using `app('currency')`:
+First let's create a form select element with all options displayed. We can either use a `Currency` facade or simply
+pull `currency` from within the container using `app('currency')`:
 
 ```html
+
 <form>
-    <select id="currency">
-        @foreach(app('currency')->options() as $option)
-            <option 
-                value="/currency/{{ $option->value }}"
-                {{ app('currency')->selected($option->value) }}
-            >{{ $option->label }}</option>
-        @endforeach
-    </select>
+	<select id="currency">
+		@foreach(app('currency')->options() as $option)
+		<option
+			value="/currency/{{ $option->value }}"
+			{{ app(
+		'currency')->selected($option->value) }}
+		>{{ $option->label }}</option>
+		@endforeach
+	</select>
 </form>
 ```
 
-Now we need have some JavaScript so that when the `change` event occurs, the call is made to the given route, where action of the controller sets the new currency and page reloads reflecting that change.
+Now we need have some JavaScript so that when the `change` event occurs, the call is made to the given route, where
+action of the controller sets the new currency and page reloads reflecting that change.
 
 Simply bind `change` event to the `select` element using JavaScript:
 
 ```javascript
 // vanilla JavaScript
 (document.getElementById('currency')).addEventListener('change', function (event) {
-    window.location.href = event.target.value;
+  window.location.href = event.target.value;
 });
 
 // or using jQuery
 $('#currency').on('change', function () {
-    window.location.href = $(this).val();
+  window.location.href = $(this).val();
 });
 ```
 
@@ -267,7 +276,8 @@ class CurrencyController extends Controller
 
 ```
 
-Now if you'd like to display price based on the selected currency, make sure that your model can provider an array of prices for a given item in the following format:
+Now if you'd like to display price based on the selected currency, make sure that your model can provider an array of
+prices for a given item in the following format:
 
 ```php
 [
@@ -287,7 +297,8 @@ Now if you'd like to display price based on the selected currency, make sure tha
 ]
 ```
 
-Let's assume our `Product` model has a `prices()` method, which will return the array formatted as above. To use it with the currency you can now simply call:
+Let's assume our `Product` model has a `prices()` method, which will return the array formatted as above. To use it with
+the currency you can now simply call:
 
 ```php
 /**
@@ -316,28 +327,36 @@ public function priceDisplay()
 }
 ```
 
-The `priceDisplay()` method will return the price with the currency symbol i.e. `£10.00` (depending on the currently selected currency).
+The `priceDisplay()` method will return the price with the currency symbol i.e. `£10.00` (depending on the currently
+selected currency).
 
 ## Formatting methods
 
 We have the following methods available on our `Currency` object instance / facade:
 
 - `decimal($values, $currency = null, $decimal_points = 2)` : gets the value and gives it back in the decimal format.
-- `integer($values, $currency = null)` : gets the value as integer i.e. `20.53` will become `20`, but `2053` will be `2053`.
-- `withSymbol($values, $currency = null, $decimal_points = null)` : gets the value and gives it back with the currency symbol at the beginning.
-- `withCode($values, $currency = null, $decimal_points = null)` : gets the value and gives it back with the currency code at the end.
-- `withSymbolAndCode($values, $currency = null, $decimal_points = null)` : gets the value and gives it back with the currency symbol and code.
+- `integer($values, $currency = null)` : gets the value as integer i.e. `20.53` will become `20`, but `2053` will
+  be `2053`.
+- `withSymbol($values, $currency = null, $decimal_points = null)` : gets the value and gives it back with the currency
+  symbol at the beginning.
+- `withCode($values, $currency = null, $decimal_points = null)` : gets the value and gives it back with the currency
+  code at the end.
+- `withSymbolAndCode($values, $currency = null, $decimal_points = null)` : gets the value and gives it back with the
+  currency symbol and code.
 
 Four of the above methods accept 3 arguments (`integer` method only first 2):
 
 - `$values` : either array as above or a single float / int
-- `$currency` : currency code - `null` by default, which is when the currency will be taken from the cookie - otherwise, you can state what currency you'd like to use.
+- `$currency` : currency code - `null` by default, which is when the currency will be taken from the cookie - otherwise,
+  you can state what currency you'd like to use.
 - `$decimal_points` : how many decimal points you'd like it to return the value with.
 
 ## More methods
 
-- `options()` : returns an array of `SSD\Currency\Option` - each representing one currency. `SSD\Currency\Option` has 2 properties `value` and `label`.
-- `selected($currency)` : to be used with `select option` element to make the given option `selected="selected"` if it is set as current.
+- `options()` : returns an array of `SSD\Currency\Option` - each representing one currency. `SSD\Currency\Option` has 2
+  properties `value` and `label`.
+- `selected($currency)` : to be used with `select option` element to make the given option `selected="selected"` if it
+  is set as current.
 - `get()` : gets currently selected currency.
 - `set($currency)` : sets the currency.
 - `is($currency)` : checks if the currency passed as argument is currently selected.
