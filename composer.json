@@ -18,6 +18,7 @@
         }
     ],
     "minimum-stability": "stable",
+    "abandoned": true,
     "autoload": {
         "psr-4": {
             "SSD\\Currency\\": "src"

@@ -1,5 +1,8 @@
 # Currency component for Laravel 9
 
+> **Warning**
+> This package is deprecated and no longer maintained.
+
 ## Installation
 
 Install the package using composer
